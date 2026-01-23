@@ -155,6 +155,11 @@
         #home {
             height: 90vh; 
             min-height: 500px;
+            /* 
+               If you want to change the main background image to a local file:
+               1. Add a photo named 'hero.jpg' to your Media folder.
+               2. Change the url below to: url('Media/hero.jpg') 
+            */
             background: linear-gradient(rgba(15, 30, 86, 0.7), rgba(15, 30, 86, 0.7)), url('https://images.unsplash.com/photo-1519225468359-2996bc010854?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
@@ -634,16 +639,17 @@
         <h3><i class="fas fa-map-pin"></i> Serving Rajahmundry & Hyderabad</h3>
     </div>
 
-    <!-- Gallery Section -->
+    <!-- Gallery Section (UPDATED FOR LOCAL IMAGES) -->
     <section id="gallery">
         <h2 class="section-title" style="text-align: center; display:block;">Our Gallery</h2>
         <p style="text-align: center;">A glimpse of our decor and catering setups</p>
         
         <div class="gallery-grid">
-            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Wedding Decor"></div>
-            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Bride"></div>
-            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1555244162-803834f70033?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Catering Food"></div>
-            <div class="gallery-item"><img src="https://images.unsplash.com/photo-1527529482837-4698179dc6ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Party Stage"></div>
+            <!-- Images connected to Media Folder -->
+            <div class="gallery-item"><img src="Media/1.jpg" alt="Event Image 1"></div>
+            <div class="gallery-item"><img src="Media/2.jpg" alt="Event Image 2"></div>
+            <div class="gallery-item"><img src="Media/3.jpg" alt="Event Image 3"></div>
+            <div class="gallery-item"><img src="Media/4.jpg" alt="Event Image 4"></div>
         </div>
     </section>
 
