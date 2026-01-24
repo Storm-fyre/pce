@@ -45,6 +45,9 @@
             color: var(--text-dark);
             background-color: var(--white);
             padding-top: var(--header-height);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         h1, h2, h3, h4 {
@@ -62,13 +65,20 @@
             list-style: none;
         }
 
-        /* --- SCROLL OFFSET IMPROVEMENT --- */
-        section {
-            scroll-margin-top: calc(var(--header-height) + 20px);
+        /* --- UTILITY CLASSES --- */
+        .hidden {
+            display: none !important;
         }
 
-        #home {
-            scroll-margin-top: 0;
+        .view-container {
+            /* This ensures transitions between views are snappy */
+            width: 100%;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         /* --- HEADER & NAVIGATION --- */
@@ -94,6 +104,7 @@
             gap: 10px;
             margin-right: auto; 
             white-space: nowrap;
+            cursor: pointer;
         }
 
         .logo i {
@@ -117,6 +128,7 @@
             text-transform: uppercase;
             font-size: 0.9rem;
             letter-spacing: 1px;
+            cursor: pointer;
         }
 
         nav a:hover {
@@ -151,10 +163,9 @@
         }
 
         /* --- HERO SECTION --- */
-        #home {
+        #home-hero {
             height: 90vh; 
             min-height: 500px;
-            /* Placeholder for Hero Image - You can change this to a local file later if needed */
             background: linear-gradient(rgba(15, 30, 86, 0.7), rgba(15, 30, 86, 0.7)), url('https://images.unsplash.com/photo-1519225468359-2996bc010854?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
@@ -165,23 +176,23 @@
             text-align: center;
             color: var(--white);
             padding: 0 20px;
-            margin-top: -80px; 
+            margin-top: -80px; /* Offset header height */
         }
 
-        #home h1 {
+        #home-hero h1 {
             font-size: 3.5rem;
             color: var(--white);
             margin-bottom: 1rem;
         }
 
-        #home p.tagline {
+        #home-hero p.tagline {
             font-size: 1.2rem;
             font-style: italic;
             margin-bottom: 2rem;
             max-width: 800px;
         }
 
-        #home .btn-main {
+        .btn-main {
             padding: 15px 30px;
             background-color: var(--accent-gold);
             color: var(--primary-blue);
@@ -190,6 +201,7 @@
             border-radius: 5px;
             border: none;
             cursor: pointer;
+            display: inline-block;
         }
 
         /* --- ABOUT SECTION --- */
@@ -234,22 +246,6 @@
             margin: 15px auto 0;
         }
 
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background-color: var(--accent-gold);
-            margin: 10px auto;
-        }
-
         .owner-name {
             font-size: 1.5rem;
             font-weight: bold;
@@ -258,7 +254,7 @@
         }
 
         /* --- SERVICES LIST SECTION --- */
-        #services {
+        #services-list {
             padding: 80px 5%;
             background-color: var(--light-gray);
         }
@@ -287,7 +283,7 @@
             text-align: center;
         }
 
-        /* Updated Styling for Clickable Service Links */
+        /* Clickable Service Links */
         .service-list li {
             padding: 10px 0;
             border-bottom: 1px solid #eee;
@@ -308,25 +304,49 @@
             margin-right: 15px;
         }
 
-        .service-list li a {
+        .service-list li span {
             color: var(--text-dark);
             width: 100%;
             display: block;
         }
 
-        .service-list li:hover a {
+        .service-list li:hover span {
             color: var(--primary-blue);
             font-weight: 700;
         }
 
-        /* --- DETAILED SERVICE SECTIONS --- */
-        .detail-section {
-            padding: 60px 5%;
-            border-bottom: 1px solid #eee;
+        /* --- INDIVIDUAL SERVICE PAGE STYLING --- */
+        .service-page-header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 40px 5% 20px 5%;
+            text-align: center;
+        }
+        
+        .back-btn-wrapper {
+            text-align: left;
+            margin-bottom: 10px;
         }
 
-        .detail-section:nth-child(even) {
-            background-color: var(--light-gray);
+        .back-btn {
+            color: var(--accent-gold);
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        .detail-section {
+            padding: 60px 5%;
+            background-color: var(--white);
+            min-height: 60vh;
         }
 
         .detail-content {
@@ -335,9 +355,20 @@
             margin: 0 auto 40px auto;
         }
 
-        .detail-content h3 {
-            font-size: 2.2rem;
+        .detail-content h2 {
+            font-size: 2.5rem;
             margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .detail-content h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--accent-gold);
+            margin: 10px auto;
         }
 
         .detail-content p {
@@ -346,24 +377,9 @@
             margin-bottom: 20px;
         }
 
-        .detail-btn {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 25px;
-            border: 2px solid var(--accent-gold);
-            color: var(--primary-blue);
-            border-radius: 30px;
-            font-weight: bold;
-        }
-
-        .detail-btn:hover {
-            background-color: var(--accent-gold);
-            color: var(--white);
-        }
-
-        /* --- GALLERY GRID (Used for Main Gallery & Service Sections) --- */
-        #gallery {
-            padding: 80px 5%;
+        /* --- GALLERY GRID --- */
+        #gallery-preview, .detail-gallery {
+            padding: 40px 0;
         }
 
         .gallery-grid {
@@ -378,7 +394,7 @@
             overflow: hidden;
             border-radius: 8px;
             position: relative;
-            background-color: #ddd; /* Placeholder color if image missing */
+            background-color: #eee;
         }
 
         .gallery-item img {
@@ -472,6 +488,7 @@
             text-align: center;
             padding: 20px;
             font-size: 0.9rem;
+            margin-top: auto;
         }
 
         /* --- WHATSAPP FLOAT --- */
@@ -498,7 +515,7 @@
             transform: scale(1.1);
         }
 
-        /* --- CUSTOM ROYAL MODAL --- */
+        /* --- MODAL --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -550,11 +567,6 @@
             margin-bottom: 15px;
         }
 
-        .modal-text {
-            margin-bottom: 10px;
-            color: var(--text-dark);
-        }
-
         .modal-btn {
             margin-top: 20px;
             width: 100%;
@@ -585,7 +597,7 @@
             .mobile-cta { margin-top: 15px; display: inline-block; }
             .mobile-cta .cta-btn { margin-left: 0; width: 80%; }
             
-            #home h1 { font-size: 2.5rem; }
+            #home-hero h1 { font-size: 2.5rem; }
             .brand-name-text { font-size: 1.8rem; }
             .welcome-text { font-size: 0.9rem; }
             .whatsapp-float { width: 50px; height: 50px; bottom: 20px; right: 20px; font-size: 25px; }
@@ -595,19 +607,19 @@
 </head>
 <body>
 
-    <!-- Header & Navigation -->
+    <!-- Header & Navigation (Always Visible) -->
     <header>
-        <a href="#" class="logo">
+        <div class="logo" onclick="navigateToHome()">
             <i class="fas fa-crown"></i> Pearl Crown Events
-        </a>
+        </div>
 
         <nav id="navbar">
             <ul id="nav-list">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">What We Do</a></li>
-                <li><a href="#gallery">Gallery</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a onclick="navigateToHome('home-hero')">Home</a></li>
+                <li><a onclick="navigateToHome('about')">About</a></li>
+                <li><a onclick="navigateToHome('services-list')">What We Do</a></li>
+                <li><a onclick="navigateToHome('gallery-preview')">Gallery</a></li>
+                <li><a onclick="navigateToHome('contact')">Contact</a></li>
                 <li class="mobile-only mobile-cta">
                     <a href="tel:7386879771" class="cta-btn">Call Now</a>
                 </li>
@@ -621,352 +633,371 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="home">
-        <h1>Making Your Celebrations Royal</h1>
-        <p class="tagline">"Every great memory begins with great celebration, and that’s exactly where we come."</p>
-        <br>
-        <a href="#contact" class="btn-main">Plan My Event</a>
-    </section>
-
-    <!-- About Section -->
-    <section id="about">
-        <div class="section-title-wrapper">
-            <span class="welcome-text">Welcome to</span>
-            <span class="brand-name-text">Pearl Crown Events</span>
-        </div>
+    <!-- VIEW 1: HOME CONTAINER -->
+    <div id="home-view" class="view-container">
         
-        <p>
-            We are dedicated to turning your special moments into unforgettable memories. 
-            From intimate gatherings to grand celebrations, we handle every detail with precision and care.
-        </p>
-        <div class="owner-name">
-            - Lalitha Tadimalla
-        </div>
-        <p><small>Event Planning & Management</small></p>
-    </section>
+        <!-- Hero Section -->
+        <section id="home-hero">
+            <h1>Making Your Celebrations Royal</h1>
+            <p class="tagline">"Every great memory begins with great celebration, and that’s exactly where we come."</p>
+            <br>
+            <a onclick="navigateToHome('contact')" class="btn-main" style="color:#0f1e56">Plan My Event</a>
+        </section>
 
-    <!-- Services List Section (Navigation to details) -->
-    <section id="services">
-        <h2 class="section-title" style="text-align: center; display:block;">What We Do</h2>
-        <div class="services-container">
+        <!-- About Section -->
+        <section id="about">
+            <div class="section-title-wrapper">
+                <span class="welcome-text">Welcome to</span>
+                <span class="brand-name-text">Pearl Crown Events</span>
+            </div>
             
-            <div class="service-column">
-                <h3><i class="fas fa-glass-cheers"></i> Events</h3>
-                <ul class="service-list">
-                    <li><i class="fas fa-arrow-right"></i> <a href="#wedding">Wedding</a></li>
-                    <li><i class="fas fa-arrow-right"></i> <a href="#engagement">Engagement</a></li>
-                    <li><i class="fas fa-arrow-right"></i> <a href="#anniversary">Anniversary Parties</a></li>
-                    <li><i class="fas fa-arrow-right"></i> <a href="#birthday">Birthday Parties</a></li>
-                    <li><i class="fas fa-arrow-right"></i> <a href="#cradle">Cradle Ceremonies</a></li>
-                    <li><i class="fas fa-arrow-right"></i> <a href="#bommala">Bommala Koluvu</a></li>
-                    <li><i class="fas fa-arrow-right"></i> <a href="#sangeet">Sangeet</a></li>
-                    <li><i class="fas fa-arrow-right"></i> <a href="#mehandi">Mehandi Function</a></li>
-                    <li><i class="fas fa-arrow-right"></i> <a href="#halfsaree">Half-Saree Function</a></li>
-                </ul>
+            <p>
+                We are dedicated to turning your special moments into unforgettable memories. 
+                From intimate gatherings to grand celebrations, we handle every detail with precision and care.
+            </p>
+            <div class="owner-name">
+                - Lalitha Tadimalla
             </div>
+            <p><small>Event Planning & Management</small></p>
+        </section>
 
-            <div class="service-column">
-                <h3><i class="fas fa-tasks"></i> Services</h3>
-                <ul class="service-list">
-                    <li><i class="fas fa-arrow-right"></i> <a href="#venue">Venue Management</a></li>
-                    <li><i class="fas fa-arrow-right"></i> <a href="#planning">Planning & Concept</a></li>
-                    <li><i class="fas fa-arrow-right"></i> <a href="#design">Design & Decor</a></li>
-                    <li><i class="fas fa-arrow-right"></i> <a href="#catering">Catering Services</a></li>
-                    <li><i class="fas fa-arrow-right"></i> <a href="#media">Media Management</a></li>
-                </ul>
+        <!-- Services List Section -->
+        <section id="services-list">
+            <h2 class="section-title" style="text-align: center; display:block;">What We Do</h2>
+            <div class="services-container">
+                
+                <div class="service-column">
+                    <h3><i class="fas fa-glass-cheers"></i> Events</h3>
+                    <ul class="service-list">
+                        <li onclick="openService('wedding')"><i class="fas fa-arrow-right"></i> <span>Wedding</span></li>
+                        <li onclick="openService('engagement')"><i class="fas fa-arrow-right"></i> <span>Engagement</span></li>
+                        <li onclick="openService('anniversary')"><i class="fas fa-arrow-right"></i> <span>Anniversary Parties</span></li>
+                        <li onclick="openService('birthday')"><i class="fas fa-arrow-right"></i> <span>Birthday Parties</span></li>
+                        <li onclick="openService('cradle')"><i class="fas fa-arrow-right"></i> <span>Cradle Ceremonies</span></li>
+                        <li onclick="openService('bommala')"><i class="fas fa-arrow-right"></i> <span>Bommala Koluvu</span></li>
+                        <li onclick="openService('sangeet')"><i class="fas fa-arrow-right"></i> <span>Sangeet</span></li>
+                        <li onclick="openService('mehandi')"><i class="fas fa-arrow-right"></i> <span>Mehandi Function</span></li>
+                        <li onclick="openService('halfsaree')"><i class="fas fa-arrow-right"></i> <span>Half-Saree Function</span></li>
+                    </ul>
+                </div>
+
+                <div class="service-column">
+                    <h3><i class="fas fa-tasks"></i> Services</h3>
+                    <ul class="service-list">
+                        <li onclick="openService('venue')"><i class="fas fa-arrow-right"></i> <span>Venue Management</span></li>
+                        <li onclick="openService('planning')"><i class="fas fa-arrow-right"></i> <span>Planning & Concept</span></li>
+                        <li onclick="openService('design')"><i class="fas fa-arrow-right"></i> <span>Design & Decor</span></li>
+                        <li onclick="openService('catering')"><i class="fas fa-arrow-right"></i> <span>Catering Services</span></li>
+                        <li onclick="openService('media')"><i class="fas fa-arrow-right"></i> <span>Media Management</span></li>
+                    </ul>
+                </div>
+
             </div>
+        </section>
 
+        <!-- Locations Banner -->
+        <div class="locations-banner">
+            <h3><i class="fas fa-map-pin"></i> Serving Rajahmundry & Hyderabad</h3>
         </div>
-    </section>
 
-    <!-- Locations Banner -->
-    <div class="locations-banner">
-        <h3><i class="fas fa-map-pin"></i> Serving Rajahmundry & Hyderabad</h3>
-    </div>
+        <!-- Main Gallery Section -->
+        <section id="gallery-preview">
+            <h2 class="section-title" style="text-align: center; display:block;">Our Highlights</h2>
+            <p style="text-align: center;">A glimpse of our best work</p>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Main Gallery/1.jpg" alt="Highlight 1"></div>
+                <div class="gallery-item"><img src="Media/Main Gallery/2.jpg" alt="Highlight 2"></div>
+                <div class="gallery-item"><img src="Media/Main Gallery/3.jpg" alt="Highlight 3"></div>
+                <div class="gallery-item"><img src="Media/Main Gallery/4.jpg" alt="Highlight 4"></div>
+            </div>
+        </section>
 
-    <!-- Main Gallery Section (Highlights) -->
-    <section id="gallery">
-        <h2 class="section-title" style="text-align: center; display:block;">Our Highlights</h2>
-        <p style="text-align: center;">A glimpse of our best work</p>
+        <!-- Contact Section (Shared in Home View) -->
+        <section id="contact">
+            <h2 class="section-title" style="text-align: center; display:block;">Contact Us</h2>
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="info-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <span class="label">Phone</span>
+                            <p><a href="tel:7386879771">+91 73868 79771</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <span class="label">Email</span>
+                            <p>pearlcrownevents5@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <span class="label">Locations</span>
+                            <p>Rajahmundry & Hyderabad</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form id="bookingForm" onsubmit="submitForm(event)">
+                        <input type="text" name="user_name" placeholder="Your Name" required>
+                        <input type="tel" name="phone_number" placeholder="Phone Number" required>
+                        <select name="event_type" required>
+                            <option value="" disabled selected>Event Type</option>
+                            <option value="Wedding">Wedding</option>
+                            <option value="Engagement">Engagement</option>
+                            <option value="Birthday">Birthday</option>
+                            <option value="Cradle">Cradle Ceremony</option>
+                            <option value="Bommala">Bommala Koluvu</option>
+                            <option value="Sangeet">Sangeet</option>
+                            <option value="HalfSaree">Half-Saree Function</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <textarea name="message" rows="5" placeholder="Tell us about your event (Date, Venue, etc.)" required></textarea>
+                        <button type="submit">Send Enquiry</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- End Home View -->
+
+
+    <!-- VIEW 2: SERVICE DETAILS CONTAINER (Hidden by default) -->
+    <div id="service-view" class="view-container hidden">
         
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="Media/Main Gallery/1.jpg" alt="Highlight 1"></div>
-            <div class="gallery-item"><img src="Media/Main Gallery/2.jpg" alt="Highlight 2"></div>
-            <div class="gallery-item"><img src="Media/Main Gallery/3.jpg" alt="Highlight 3"></div>
-            <div class="gallery-item"><img src="Media/Main Gallery/4.jpg" alt="Highlight 4"></div>
-        </div>
-    </section>
-
-    <!-- ============================================== -->
-    <!-- DETAILED SERVICE SECTIONS START HERE           -->
-    <!-- ============================================== -->
-
-    <!-- 1. WEDDING -->
-    <section id="wedding" class="detail-section">
-        <div class="detail-content">
-            <h3>Wedding</h3>
-            <p>
-                At Pearl Crown Events, we believe a wedding is not just an event—it is a beautiful story of love, emotions, and togetherness. 
-                We feel truly honored to have curated this special day for the Bride and Groom.
-            </p>
-            <a href="#contact" class="detail-btn">Enquire Now</a>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="Media/Wedding/1.jpg" alt="Wedding 1"></div>
-            <div class="gallery-item"><img src="Media/Wedding/2.jpg" alt="Wedding 2"></div>
-            <div class="gallery-item"><img src="Media/Wedding/3.jpg" alt="Wedding 3"></div>
-            <div class="gallery-item"><img src="Media/Wedding/4.jpg" alt="Wedding 4"></div>
-        </div>
-    </section>
-
-    <!-- 2. VENUE MANAGEMENT -->
-    <section id="venue" class="detail-section">
-        <div class="detail-content">
-            <h3>Venue Management</h3>
-            <p>
-                At Pearl Crown Events, venue management is the foundation of a successful event. From selecting the perfect location to coordinating every logistical detail, we ensure the venue complements the vision and purpose of your celebration.
-            </p>
-            <p>
-                Our team carefully manages layout planning, vendor coordination, guest flow, décor alignment, power backup, safety measures, and on-ground supervision. Every element is handled with precision so that the event runs smoothly, on time, and stress-free.
-            </p>
-            <a href="#contact" class="detail-btn">Get Quote</a>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="Media/Venue Management/1.jpg" alt="Venue 1"></div>
-            <div class="gallery-item"><img src="Media/Venue Management/2.jpg" alt="Venue 2"></div>
-            <div class="gallery-item"><img src="Media/Venue Management/3.jpg" alt="Venue 3"></div>
-            <div class="gallery-item"><img src="Media/Venue Management/4.jpg" alt="Venue 4"></div>
-        </div>
-    </section>
-
-    <!-- 3. DESIGN & DECOR (SPECIAL: 6 IMAGES) -->
-    <section id="design" class="detail-section">
-        <div class="detail-content">
-            <h3>Design & Decor</h3>
-            <p>Coming Soon. We create breathtaking environments that reflect your personal style.</p>
-            <a href="#contact" class="detail-btn">Enquire Now</a>
-        </div>
-        <div class="gallery-grid">
-            <!-- 6 Image Slots for Design & Decor -->
-            <div class="gallery-item"><img src="Media/Design and Decor/1.jpg" alt="Design 1"></div>
-            <div class="gallery-item"><img src="Media/Design and Decor/2.jpg" alt="Design 2"></div>
-            <div class="gallery-item"><img src="Media/Design and Decor/3.jpg" alt="Design 3"></div>
-            <div class="gallery-item"><img src="Media/Design and Decor/4.jpg" alt="Design 4"></div>
-            <div class="gallery-item"><img src="Media/Design and Decor/5.jpg" alt="Design 5"></div>
-            <div class="gallery-item"><img src="Media/Design and Decor/6.jpg" alt="Design 6"></div>
-        </div>
-    </section>
-
-    <!-- 4. ENGAGEMENT -->
-    <section id="engagement" class="detail-section">
-        <div class="detail-content">
-            <h3>Engagement</h3>
-            <p>Coming Soon. Celebrating the beginning of your forever.</p>
-            <a href="#contact" class="detail-btn">Enquire Now</a>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="Media/Engagement/1.jpg" alt="Engagement 1"></div>
-            <div class="gallery-item"><img src="Media/Engagement/2.jpg" alt="Engagement 2"></div>
-            <div class="gallery-item"><img src="Media/Engagement/3.jpg" alt="Engagement 3"></div>
-            <div class="gallery-item"><img src="Media/Engagement/4.jpg" alt="Engagement 4"></div>
-        </div>
-    </section>
-
-    <!-- 5. ANNIVERSARY PARTIES -->
-    <section id="anniversary" class="detail-section">
-        <div class="detail-content">
-            <h3>Anniversary Parties</h3>
-            <p>Coming Soon. Reliving the beautiful journey of love.</p>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="Media/Anniversary Parties/1.jpg" alt="Anniversary 1"></div>
-            <div class="gallery-item"><img src="Media/Anniversary Parties/2.jpg" alt="Anniversary 2"></div>
-            <div class="gallery-item"><img src="Media/Anniversary Parties/3.jpg" alt="Anniversary 3"></div>
-            <div class="gallery-item"><img src="Media/Anniversary Parties/4.jpg" alt="Anniversary 4"></div>
-        </div>
-    </section>
-
-    <!-- 6. BIRTHDAY PARTIES -->
-    <section id="birthday" class="detail-section">
-        <div class="detail-content">
-            <h3>Birthday Parties</h3>
-            <p>Coming Soon. Fun, excitement, and memories for all ages.</p>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="Media/Birthday Parties/1.jpg" alt="Birthday 1"></div>
-            <div class="gallery-item"><img src="Media/Birthday Parties/2.jpg" alt="Birthday 2"></div>
-            <div class="gallery-item"><img src="Media/Birthday Parties/3.jpg" alt="Birthday 3"></div>
-            <div class="gallery-item"><img src="Media/Birthday Parties/4.jpg" alt="Birthday 4"></div>
-        </div>
-    </section>
-
-    <!-- 7. CRADLE CEREMONIES -->
-    <section id="cradle" class="detail-section">
-        <div class="detail-content">
-            <h3>Cradle Ceremonies</h3>
-            <p>Coming Soon. Welcoming the newest member of your family with joy.</p>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="Media/Cradle Ceremonies/1.jpg" alt="Cradle 1"></div>
-            <div class="gallery-item"><img src="Media/Cradle Ceremonies/2.jpg" alt="Cradle 2"></div>
-            <div class="gallery-item"><img src="Media/Cradle Ceremonies/3.jpg" alt="Cradle 3"></div>
-            <div class="gallery-item"><img src="Media/Cradle Ceremonies/4.jpg" alt="Cradle 4"></div>
-        </div>
-    </section>
-
-    <!-- 8. BOMMALA KOLUVU -->
-    <section id="bommala" class="detail-section">
-        <div class="detail-content">
-            <h3>Bommala Koluvu</h3>
-            <p>Coming Soon. Traditional setups with modern elegance.</p>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="Media/Bommala Koluvu/1.jpg" alt="Bommala 1"></div>
-            <div class="gallery-item"><img src="Media/Bommala Koluvu/2.jpg" alt="Bommala 2"></div>
-            <div class="gallery-item"><img src="Media/Bommala Koluvu/3.jpg" alt="Bommala 3"></div>
-            <div class="gallery-item"><img src="Media/Bommala Koluvu/4.jpg" alt="Bommala 4"></div>
-        </div>
-    </section>
-
-    <!-- 9. SANGEET -->
-    <section id="sangeet" class="detail-section">
-        <div class="detail-content">
-            <h3>Sangeet</h3>
-            <p>Coming Soon. Music, dance, and vibrant celebrations.</p>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="Media/Sangeet/1.jpg" alt="Sangeet 1"></div>
-            <div class="gallery-item"><img src="Media/Sangeet/2.jpg" alt="Sangeet 2"></div>
-            <div class="gallery-item"><img src="Media/Sangeet/3.jpg" alt="Sangeet 3"></div>
-            <div class="gallery-item"><img src="Media/Sangeet/4.jpg" alt="Sangeet 4"></div>
-        </div>
-    </section>
-
-    <!-- 10. MEHANDI FUNCTION -->
-    <section id="mehandi" class="detail-section">
-        <div class="detail-content">
-            <h3>Mehandi Function</h3>
-            <p>Coming Soon. Colorful patterns and festive vibes.</p>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="Media/Mehandi Function/1.jpg" alt="Mehandi 1"></div>
-            <div class="gallery-item"><img src="Media/Mehandi Function/2.jpg" alt="Mehandi 2"></div>
-            <div class="gallery-item"><img src="Media/Mehandi Function/3.jpg" alt="Mehandi 3"></div>
-            <div class="gallery-item"><img src="Media/Mehandi Function/4.jpg" alt="Mehandi 4"></div>
-        </div>
-    </section>
-
-    <!-- 11. HALF-SAREE FUNCTION -->
-    <section id="halfsaree" class="detail-section">
-        <div class="detail-content">
-            <h3>Half-Saree Function</h3>
-            <p>Coming Soon. A traditional celebration of grace.</p>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="Media/Half-Saree Function/1.jpg" alt="Half Saree 1"></div>
-            <div class="gallery-item"><img src="Media/Half-Saree Function/2.jpg" alt="Half Saree 2"></div>
-            <div class="gallery-item"><img src="Media/Half-Saree Function/3.jpg" alt="Half Saree 3"></div>
-            <div class="gallery-item"><img src="Media/Half-Saree Function/4.jpg" alt="Half Saree 4"></div>
-        </div>
-    </section>
-
-    <!-- 12. PLANNING & CONCEPT -->
-    <section id="planning" class="detail-section">
-        <div class="detail-content">
-            <h3>Planning & Concept</h3>
-            <p>Coming Soon. Blueprinting your perfect event.</p>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="Media/Planning and Concept/1.jpg" alt="Planning 1"></div>
-            <div class="gallery-item"><img src="Media/Planning and Concept/2.jpg" alt="Planning 2"></div>
-            <div class="gallery-item"><img src="Media/Planning and Concept/3.jpg" alt="Planning 3"></div>
-            <div class="gallery-item"><img src="Media/Planning and Concept/4.jpg" alt="Planning 4"></div>
-            <div class="gallery-item"><img src="Media/Planning and Concept/5.jpg" alt="Planning 5"></div>
-            <div class="gallery-item"><img src="Media/Planning and Concept/6.jpg" alt="Planning 6"></div>
-        </div>
-    </section>
-
-    <!-- 13. CATERING SERVICES -->
-    <section id="catering" class="detail-section">
-        <div class="detail-content">
-            <h3>Catering Services</h3>
-            <p>Coming Soon. Delicious flavors to delight your guests.</p>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="Media/Catering Services/1.jpg" alt="Catering 1"></div>
-            <div class="gallery-item"><img src="Media/Catering Services/2.jpg" alt="Catering 2"></div>
-            <div class="gallery-item"><img src="Media/Catering Services/3.jpg" alt="Catering 3"></div>
-            <div class="gallery-item"><img src="Media/Catering Services/4.jpg" alt="Catering 4"></div>
-        </div>
-    </section>
-
-    <!-- 14. MEDIA MANAGEMENT -->
-    <section id="media" class="detail-section">
-        <div class="detail-content">
-            <h3>Media Management</h3>
-            <p>Coming Soon. Capturing moments that last forever.</p>
-        </div>
-        <div class="gallery-grid">
-            <div class="gallery-item"><img src="Media/Media Management/1.jpg" alt="Media 1"></div>
-            <div class="gallery-item"><img src="Media/Media Management/2.jpg" alt="Media 2"></div>
-            <div class="gallery-item"><img src="Media/Media Management/3.jpg" alt="Media 3"></div>
-            <div class="gallery-item"><img src="Media/Media Management/4.jpg" alt="Media 4"></div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2 class="section-title" style="text-align: center; display:block;">Contact Us</h2>
-        <div class="contact-container">
-            
-            <div class="contact-info">
-                <div class="info-item">
-                    <i class="fas fa-phone-alt"></i>
-                    <div>
-                        <span class="label">Phone</span>
-                        <p><a href="tel:7386879771">+91 73868 79771</a></p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-envelope"></i>
-                    <div>
-                        <span class="label">Email</span>
-                        <p>pearlcrownevents5@gmail.com</p>
-                    </div>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <div>
-                        <span class="label">Locations</span>
-                        <p>Rajahmundry & Hyderabad</p>
-                    </div>
+        <div class="service-page-header">
+            <div class="back-btn-wrapper">
+                <div class="back-btn" onclick="navigateToHome()">
+                    <i class="fas fa-arrow-left"></i> Back to Home
                 </div>
             </div>
+        </div>
 
-            <div class="contact-form">
-                <form id="bookingForm" onsubmit="submitForm(event)">
-                    <input type="text" name="user_name" placeholder="Your Name" required>
-                    <input type="tel" name="phone_number" placeholder="Phone Number" required>
-                    <select name="event_type" required>
-                        <option value="" disabled selected>Event Type</option>
-                        <option value="Wedding">Wedding</option>
-                        <option value="Engagement">Engagement</option>
-                        <option value="Birthday">Birthday</option>
-                        <option value="Cradle">Cradle Ceremony</option>
-                        <option value="Bommala">Bommala Koluvu</option>
-                        <option value="Sangeet">Sangeet</option>
-                        <option value="HalfSaree">Half-Saree Function</option>
-                        <option value="Other">Other</option>
-                    </select>
-                    <textarea name="message" rows="5" placeholder="Tell us about your event (Date, Venue, etc.)" required></textarea>
-                    <button type="submit">Send Enquiry</button>
-                </form>
+        <!-- INDIVIDUAL SERVICE SECTIONS (Only one visible at a time) -->
+        
+        <!-- Wedding -->
+        <div id="wedding" class="detail-section hidden">
+            <div class="detail-content">
+                <h2>Wedding</h2>
+                <p>At Pearl Crown Events, we believe a wedding is not just an event—it is a beautiful story of love, emotions, and togetherness. We feel truly honored to have curated this special day for the Bride and Groom.</p>
+                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Wedding/1.jpg" alt="Wedding 1"></div>
+                <div class="gallery-item"><img src="Media/Wedding/2.jpg" alt="Wedding 2"></div>
+                <div class="gallery-item"><img src="Media/Wedding/3.jpg" alt="Wedding 3"></div>
+                <div class="gallery-item"><img src="Media/Wedding/4.jpg" alt="Wedding 4"></div>
             </div>
         </div>
-    </section>
 
-    <!-- Footer -->
+        <!-- Venue Management -->
+        <div id="venue" class="detail-section hidden">
+            <div class="detail-content">
+                <h2>Venue Management</h2>
+                <p>At Pearl Crown Events, venue management is the foundation of a successful event. From selecting the perfect location to coordinating every logistical detail, we ensure the venue complements the vision and purpose of your celebration.</p>
+                <p>Our team carefully manages layout planning, vendor coordination, guest flow, décor alignment, power backup, safety measures, and on-ground supervision. Every element is handled with precision so that the event runs smoothly, on time, and stress-free.</p>
+                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Get Quote</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Venue Management/1.jpg" alt="Venue 1"></div>
+                <div class="gallery-item"><img src="Media/Venue Management/2.jpg" alt="Venue 2"></div>
+                <div class="gallery-item"><img src="Media/Venue Management/3.jpg" alt="Venue 3"></div>
+                <div class="gallery-item"><img src="Media/Venue Management/4.jpg" alt="Venue 4"></div>
+            </div>
+        </div>
+
+        <!-- Design & Decor (6 Images) -->
+        <div id="design" class="detail-section hidden">
+            <div class="detail-content">
+                <h2>Design & Decor</h2>
+                <p>Coming Soon. We create breathtaking environments that reflect your personal style.</p>
+                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Design and Decor/1.jpg" alt="Design 1"></div>
+                <div class="gallery-item"><img src="Media/Design and Decor/2.jpg" alt="Design 2"></div>
+                <div class="gallery-item"><img src="Media/Design and Decor/3.jpg" alt="Design 3"></div>
+                <div class="gallery-item"><img src="Media/Design and Decor/4.jpg" alt="Design 4"></div>
+                <div class="gallery-item"><img src="Media/Design and Decor/5.jpg" alt="Design 5"></div>
+                <div class="gallery-item"><img src="Media/Design and Decor/6.jpg" alt="Design 6"></div>
+            </div>
+        </div>
+
+        <!-- Engagement -->
+        <div id="engagement" class="detail-section hidden">
+            <div class="detail-content">
+                <h2>Engagement</h2>
+                <p>Coming Soon. Celebrating the beginning of your forever.</p>
+                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Engagement/1.jpg" alt="Img 1"></div>
+                <div class="gallery-item"><img src="Media/Engagement/2.jpg" alt="Img 2"></div>
+                <div class="gallery-item"><img src="Media/Engagement/3.jpg" alt="Img 3"></div>
+                <div class="gallery-item"><img src="Media/Engagement/4.jpg" alt="Img 4"></div>
+            </div>
+        </div>
+
+        <!-- Anniversary -->
+        <div id="anniversary" class="detail-section hidden">
+            <div class="detail-content">
+                <h2>Anniversary Parties</h2>
+                <p>Coming Soon. Reliving the beautiful journey of love.</p>
+                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Anniversary Parties/1.jpg" alt="Img 1"></div>
+                <div class="gallery-item"><img src="Media/Anniversary Parties/2.jpg" alt="Img 2"></div>
+                <div class="gallery-item"><img src="Media/Anniversary Parties/3.jpg" alt="Img 3"></div>
+                <div class="gallery-item"><img src="Media/Anniversary Parties/4.jpg" alt="Img 4"></div>
+            </div>
+        </div>
+
+        <!-- Birthday -->
+        <div id="birthday" class="detail-section hidden">
+            <div class="detail-content">
+                <h2>Birthday Parties</h2>
+                <p>Coming Soon. Fun, excitement, and memories for all ages.</p>
+                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Birthday Parties/1.jpg" alt="Img 1"></div>
+                <div class="gallery-item"><img src="Media/Birthday Parties/2.jpg" alt="Img 2"></div>
+                <div class="gallery-item"><img src="Media/Birthday Parties/3.jpg" alt="Img 3"></div>
+                <div class="gallery-item"><img src="Media/Birthday Parties/4.jpg" alt="Img 4"></div>
+            </div>
+        </div>
+
+        <!-- Cradle -->
+        <div id="cradle" class="detail-section hidden">
+            <div class="detail-content">
+                <h2>Cradle Ceremonies</h2>
+                <p>Coming Soon. Welcoming the newest member of your family with joy.</p>
+                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Cradle Ceremonies/1.jpg" alt="Img 1"></div>
+                <div class="gallery-item"><img src="Media/Cradle Ceremonies/2.jpg" alt="Img 2"></div>
+                <div class="gallery-item"><img src="Media/Cradle Ceremonies/3.jpg" alt="Img 3"></div>
+                <div class="gallery-item"><img src="Media/Cradle Ceremonies/4.jpg" alt="Img 4"></div>
+            </div>
+        </div>
+
+        <!-- Bommala -->
+        <div id="bommala" class="detail-section hidden">
+            <div class="detail-content">
+                <h2>Bommala Koluvu</h2>
+                <p>Coming Soon. Traditional setups with modern elegance.</p>
+                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Bommala Koluvu/1.jpg" alt="Img 1"></div>
+                <div class="gallery-item"><img src="Media/Bommala Koluvu/2.jpg" alt="Img 2"></div>
+                <div class="gallery-item"><img src="Media/Bommala Koluvu/3.jpg" alt="Img 3"></div>
+                <div class="gallery-item"><img src="Media/Bommala Koluvu/4.jpg" alt="Img 4"></div>
+            </div>
+        </div>
+
+        <!-- Sangeet -->
+        <div id="sangeet" class="detail-section hidden">
+            <div class="detail-content">
+                <h2>Sangeet</h2>
+                <p>Coming Soon. Music, dance, and vibrant celebrations.</p>
+                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Sangeet/1.jpg" alt="Img 1"></div>
+                <div class="gallery-item"><img src="Media/Sangeet/2.jpg" alt="Img 2"></div>
+                <div class="gallery-item"><img src="Media/Sangeet/3.jpg" alt="Img 3"></div>
+                <div class="gallery-item"><img src="Media/Sangeet/4.jpg" alt="Img 4"></div>
+            </div>
+        </div>
+
+        <!-- Mehandi -->
+        <div id="mehandi" class="detail-section hidden">
+            <div class="detail-content">
+                <h2>Mehandi Function</h2>
+                <p>Coming Soon. Colorful patterns and festive vibes.</p>
+                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Mehandi Function/1.jpg" alt="Img 1"></div>
+                <div class="gallery-item"><img src="Media/Mehandi Function/2.jpg" alt="Img 2"></div>
+                <div class="gallery-item"><img src="Media/Mehandi Function/3.jpg" alt="Img 3"></div>
+                <div class="gallery-item"><img src="Media/Mehandi Function/4.jpg" alt="Img 4"></div>
+            </div>
+        </div>
+
+        <!-- Half Saree -->
+        <div id="halfsaree" class="detail-section hidden">
+            <div class="detail-content">
+                <h2>Half-Saree Function</h2>
+                <p>Coming Soon. A traditional celebration of grace.</p>
+                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Half-Saree Function/1.jpg" alt="Img 1"></div>
+                <div class="gallery-item"><img src="Media/Half-Saree Function/2.jpg" alt="Img 2"></div>
+                <div class="gallery-item"><img src="Media/Half-Saree Function/3.jpg" alt="Img 3"></div>
+                <div class="gallery-item"><img src="Media/Half-Saree Function/4.jpg" alt="Img 4"></div>
+            </div>
+        </div>
+
+        <!-- Planning -->
+        <div id="planning" class="detail-section hidden">
+            <div class="detail-content">
+                <h2>Planning & Concept</h2>
+                <p>Coming Soon. Blueprinting your perfect event.</p>
+                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Planning and Concept/1.jpg" alt="Img 1"></div>
+                <div class="gallery-item"><img src="Media/Planning and Concept/2.jpg" alt="Img 2"></div>
+                <div class="gallery-item"><img src="Media/Planning and Concept/3.jpg" alt="Img 3"></div>
+                <div class="gallery-item"><img src="Media/Planning and Concept/4.jpg" alt="Img 4"></div>
+                <div class="gallery-item"><img src="Media/Planning and Concept/5.jpg" alt="Img 5"></div>
+                <div class="gallery-item"><img src="Media/Planning and Concept/6.jpg" alt="Img 6"></div>
+            </div>
+        </div>
+
+        <!-- Catering -->
+        <div id="catering" class="detail-section hidden">
+            <div class="detail-content">
+                <h2>Catering Services</h2>
+                <p>Coming Soon. Delicious flavors to delight your guests.</p>
+                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Catering Services/1.jpg" alt="Img 1"></div>
+                <div class="gallery-item"><img src="Media/Catering Services/2.jpg" alt="Img 2"></div>
+                <div class="gallery-item"><img src="Media/Catering Services/3.jpg" alt="Img 3"></div>
+                <div class="gallery-item"><img src="Media/Catering Services/4.jpg" alt="Img 4"></div>
+            </div>
+        </div>
+
+        <!-- Media Mgmt -->
+        <div id="media" class="detail-section hidden">
+            <div class="detail-content">
+                <h2>Media Management</h2>
+                <p>Coming Soon. Capturing moments that last forever.</p>
+                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="Media/Media Management/1.jpg" alt="Img 1"></div>
+                <div class="gallery-item"><img src="Media/Media Management/2.jpg" alt="Img 2"></div>
+                <div class="gallery-item"><img src="Media/Media Management/3.jpg" alt="Img 3"></div>
+                <div class="gallery-item"><img src="Media/Media Management/4.jpg" alt="Img 4"></div>
+            </div>
+        </div>
+
+    </div><!-- End Service View -->
+
+
+    <!-- Footer (Always Visible) -->
     <footer>
         <p>&copy; 2025 Pearl Crown Events. All Rights Reserved.</p>
         <p>Designed by Stormfyre</p>
@@ -977,18 +1008,18 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- CUSTOM ROYAL MODAL (Hidden by default) -->
+    <!-- CUSTOM ROYAL MODAL -->
     <div class="modal-overlay" id="successModal">
         <div class="modal-box">
             <i class="fas fa-crown modal-icon"></i>
             <h2 class="modal-title">Request Received</h2>
             <p class="modal-text">Thank you for choosing Pearl Crown Events.</p>
-            <p class="modal-text">We will review your details and contact you shortly at <strong>+91 73868 79771</strong>.</p>
+            <p class="modal-text">We will review your details and contact you shortly.</p>
             <button class="cta-btn modal-btn" onclick="closeModal()">Close</button>
         </div>
     </div>
 
-    <!-- JavaScript -->
+    <!-- JavaScript (The Logic) -->
     <script>
         // --- MOBILE MENU LOGIC ---
         const menuToggle = document.getElementById('mobile-menu');
@@ -998,33 +1029,99 @@
             navbar.classList.toggle('active');
         });
 
-        document.querySelectorAll('#nav-list li a').forEach(link => {
-            link.addEventListener('click', () => {
-                navbar.classList.remove('active');
-            });
-        });
+        // --- NAVIGATION STATE MANAGEMENT ---
+        const homeView = document.getElementById('home-view');
+        const serviceView = document.getElementById('service-view');
+        const allServices = document.querySelectorAll('.detail-section');
 
-        // --- MODAL LOGIC ---
-        const modal = document.getElementById('successModal');
+        // Function 1: Open a specific service
+        function openService(serviceId) {
+            // Hide Home, Show Service Wrapper
+            homeView.classList.add('hidden');
+            serviceView.classList.remove('hidden');
 
-        function openModal() {
-            modal.classList.add('active');
-        }
+            // Hide all individual services first
+            allServices.forEach(el => el.classList.add('hidden'));
 
-        function closeModal() {
-            modal.classList.remove('active');
-        }
-
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) {
-                closeModal();
+            // Show the requested service
+            const activeService = document.getElementById(serviceId);
+            if(activeService) {
+                activeService.classList.remove('hidden');
             }
-        });
+
+            // Close mobile menu if open
+            navbar.classList.remove('active');
+
+            // Scroll to top
+            window.scrollTo(0, 0);
+
+            // Add to Browser History (Making Back Button Work)
+            // We push a state with the service ID
+            history.pushState({view: 'service', id: serviceId}, "", "#" + serviceId);
+        }
+
+        // Function 2: Go back to Home
+        function navigateToHome(scrollToId = null) {
+            // Show Home, Hide Service Wrapper
+            serviceView.classList.add('hidden');
+            homeView.classList.remove('hidden');
+
+            // Close mobile menu if open
+            navbar.classList.remove('active');
+
+            // If a specific section was requested (e.g., from nav), scroll to it
+            if (scrollToId) {
+                const element = document.getElementById(scrollToId);
+                if (element) {
+                    // Small timeout to allow the view to render first
+                    setTimeout(() => {
+                        element.scrollIntoView({behavior: 'smooth'});
+                    }, 50);
+                }
+            } else {
+                window.scrollTo(0, 0);
+            }
+
+            // Update URL to remove hash without reloading
+            if(history.state && history.state.view === 'service') {
+                 history.pushState({view: 'home'}, "", " ");
+            }
+        }
+
+        // Function 3: "Enquire Now" button inside a service
+        function enquireNow() {
+            // Go back to home view
+            serviceView.classList.add('hidden');
+            homeView.classList.remove('hidden');
+            
+            // Scroll to contact form
+            setTimeout(() => {
+                document.getElementById('contact').scrollIntoView({behavior: 'smooth'});
+            }, 50);
+
+            // Update history
+            history.pushState({view: 'home'}, "", " ");
+        }
+
+        // Function 4: HANDLE BROWSER BACK BUTTON (The Magic Part)
+        window.onpopstate = function(event) {
+            if (event.state && event.state.view === 'service') {
+                // If history says we are in a service, show it
+                // (This handles forward button too)
+                openService(event.state.id);
+            } else {
+                // Default fallback: Show Home
+                serviceView.classList.add('hidden');
+                homeView.classList.remove('hidden');
+            }
+        };
 
         // --- EMAIL JS SEND LOGIC ---
+        const modal = document.getElementById('successModal');
+        function closeModal() { modal.classList.remove('active'); }
+
         function submitForm(event) {
             event.preventDefault(); 
-
             const btn = event.target.querySelector('button[type="submit"]');
             const originalText = btn.innerText;
             btn.innerText = 'Sending...';
@@ -1035,12 +1132,11 @@
                     btn.innerText = originalText;
                     btn.disabled = false;
                     document.getElementById("bookingForm").reset();
-                    openModal(); 
+                    modal.classList.add('active'); 
                 }, function(error) {
                     btn.innerText = originalText;
                     btn.disabled = false;
-                    console.log('FAILED...', error);
-                    alert("Unable to send request. Please verify your internet connection or call us directly.");
+                    alert("Unable to send request. Please call us directly.");
                 });
         }
     </script>
