@@ -1039,9 +1039,15 @@
         const homeView = document.getElementById('home-view');
         const serviceView = document.getElementById('service-view');
         const allServices = document.querySelectorAll('.detail-section');
+        
+        // Variable to remember where the user was on the home page
+        let lastScrollPosition = 0;
 
         // Function 1: Open a specific service
         function openService(serviceId) {
+            // SAVE CURRENT SCROLL POSITION BEFORE LEAVING HOME
+            lastScrollPosition = window.scrollY;
+
             // Hide Home, Show Service Wrapper
             homeView.classList.add('hidden');
             serviceView.classList.remove('hidden');
@@ -1058,11 +1064,10 @@
             // Close mobile menu if open
             navbar.classList.remove('active');
 
-            // Scroll to top
+            // Scroll to top of service page
             window.scrollTo(0, 0);
 
             // Add to Browser History (Making Back Button Work)
-            // We push a state with the service ID
             history.pushState({view: 'service', id: serviceId}, "", "#" + serviceId);
         }
 
@@ -1075,17 +1080,22 @@
             // Close mobile menu if open
             navbar.classList.remove('active');
 
-            // If a specific section was requested (e.g., from nav), scroll to it
             if (scrollToId) {
+                // If clicking a nav link (Home, About, etc.), go to that specific section
                 const element = document.getElementById(scrollToId);
                 if (element) {
-                    // Small timeout to allow the view to render first
                     setTimeout(() => {
                         element.scrollIntoView({behavior: 'smooth'});
                     }, 50);
                 }
             } else {
-                window.scrollTo(0, 0);
+                // If clicking "Back to Home", RESTORE previous scroll position
+                setTimeout(() => {
+                    window.scrollTo({
+                        top: lastScrollPosition, 
+                        behavior: 'smooth'
+                    });
+                }, 10);
             }
 
             // Update URL to remove hash without reloading
@@ -1109,14 +1119,13 @@
             history.pushState({view: 'home'}, "", " ");
         }
 
-        // Function 4: HANDLE BROWSER BACK BUTTON (The Magic Part)
+        // Function 4: HANDLE BROWSER BACK BUTTON
         window.onpopstate = function(event) {
             if (event.state && event.state.view === 'service') {
                 // If history says we are in a service, show it
-                // (This handles forward button too)
                 openService(event.state.id);
             } else {
-                // Default fallback: Show Home
+                // Default fallback: Show Home and restore scroll via browser default behavior
                 serviceView.classList.add('hidden');
                 homeView.classList.remove('hidden');
             }
