@@ -1,0 +1,20 @@
+name = "pce"
+compatibility_date = "2026-09-02"
+pages_build_output_dir = "."
+
+# Database Binding (Cloudflare D1)
+[[d1_databases]]
+binding = "DB"
+database_name = "pce-db"
+database_id = "3533e26a-4600-4f65-88ed-8fda217a7ff0"
+
+# Image Storage Binding (Cloudflare R2)
+[[r2_buckets]]
+binding = "BUCKET"
+bucket_name = "pce-media"
+
+# Environment Variables
+[vars]
+R2_PUBLIC_DOMAIN = "https://pub-93ff578150c84aeb85edcc3403959d9b.r2.dev"
+ADMIN_TOKEN = "pce_royal_vault_token_2026"
+ADMIN_PASSWORD = "Lalli@Admin"

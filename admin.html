@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Pearl Crown Events</title>
+    
+    <!-- Google Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <style>
+        :root {
+            --primary-blue: #0f1e56;
+            --primary-dark: #0a143a;
+            --accent-gold: #c5a059;
+            --accent-gold-light: #e0b86a;
+            --white: #ffffff;
+            --light-gray: #f8f9fa;
+            --border-color: #e2e8f0;
+            --text-dark: #2d3748;
+            --text-muted: #718096;
+            --danger: #e53e3e;
+            --success: #38a169;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Lato', sans-serif; background-color: #f0f2f5; color: var(--text-dark); min-height: 100vh; }
+
+        /* Header */
+        .admin-header {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            padding: 15px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+        .admin-brand { display: flex; align-items: center; gap: 10px; font-family: 'Playfair Display', serif; font-size: 1.3rem; }
+        .admin-brand i { color: var(--accent-gold); }
+        .admin-header-actions { display: flex; gap: 12px; }
+        .btn-header {
+            padding: 8px 16px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: 0.2s;
+        }
+        .btn-back-site { background: transparent; border: 1.5px solid var(--accent-gold); color: var(--accent-gold); }
+        .btn-back-site:hover { background: var(--accent-gold); color: var(--primary-blue); }
+        .btn-logout { background: var(--danger); border: none; color: var(--white); }
+        .btn-logout:hover { background: #c53030; }
+
+        /* Containers */
+        .admin-container { max-width: 1200px; margin: 30px auto; padding: 0 20px; }
+        .admin-card { background: var(--white); border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.06); padding: 30px; margin-bottom: 25px; border-top: 4px solid var(--accent-gold); }
+
+        /* Login Screen */
+        #login-screen { max-width: 420px; margin: 80px auto; text-align: center; }
+        .login-logo { font-size: 3rem; color: var(--accent-gold); margin-bottom: 10px; }
+        .login-title { font-family: 'Playfair Display', serif; color: var(--primary-blue); font-size: 1.8rem; margin-bottom: 20px; }
+        .login-input { width: 100%; padding: 12px 15px; border: 1.5px solid var(--border-color); border-radius: 5px; font-size: 1rem; margin-bottom: 15px; outline: none; }
+        .login-input:focus { border-color: var(--primary-blue); }
+        .btn-primary { width: 100%; padding: 12px; background: var(--primary-blue); color: var(--white); border: none; border-radius: 5px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-primary:hover { background: #1a2f7a; }
+        .error-msg { color: var(--danger); font-size: 0.9rem; margin-top: 10px; display: none; }
+
+        /* Tabs */
+        .admin-tabs { display: flex; gap: 10px; border-bottom: 2px solid var(--border-color); margin-bottom: 25px; flex-wrap: wrap; }
+        .tab-btn {
+            padding: 12px 24px;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
+        }
+        .tab-btn:hover { color: var(--primary-blue); }
+        .tab-btn.active { color: var(--primary-blue); border-bottom-color: var(--accent-gold); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Forms & Fields */
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; font-weight: bold; margin-bottom: 8px; color: var(--primary-blue); }
+        .form-select, .form-textarea { width: 100%; padding: 12px; border: 1.5px solid var(--border-color); border-radius: 5px; font-family: inherit; font-size: 1rem; }
+        .form-textarea { resize: vertical; min-height: 100px; }
+        .btn-gold { background: var(--accent-gold); color: var(--primary-blue); border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-gold:hover { background: var(--accent-gold-light); }
+
+        /* Photo Upload Dropzone */
+        .upload-dropzone { border: 2px dashed var(--accent-gold); background: #fdfbf7; padding: 30px; text-align: center; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        .upload-dropzone:hover { background: #f7f1e5; }
+        .upload-dropzone i { font-size: 2.5rem; color: var(--accent-gold); margin-bottom: 10px; }
+        .photo-queue { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; margin-top: 15px; }
+        .queue-item { position: relative; border-radius: 6px; overflow: hidden; height: 110px; background: #eee; border: 1px solid var(--border-color); }
+        .queue-item img { width: 100%; height: 100%; object-fit: cover; }
+        .queue-remove-btn { position: absolute; top: 4px; right: 4px; background: rgba(229, 62, 62, 0.85); color: white; border: none; border-radius: 50%; width: 22px; height: 22px; cursor: pointer; font-size: 12px; }
+
+        /* Gallery Grid Display */
+        .gallery-admin-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; margin-top: 20px; }
+        .gallery-card { background: var(--white); border-radius: 6px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 1px solid var(--border-color); position: relative; display: flex; flex-direction: column; }
+        .gallery-card img { width: 100%; height: 160px; object-fit: cover; }
+        .gallery-card-body { padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; background: #fafafa; }
+        .btn-icon-danger { background: transparent; border: none; color: var(--danger); font-size: 1.1rem; cursor: pointer; padding: 4px 8px; }
+        .btn-icon-danger:hover { color: #9b2c2c; }
+        .badge-highlight { font-size: 0.75rem; padding: 3px 8px; border-radius: 20px; font-weight: bold; cursor: pointer; border: 1px solid transparent; }
+        .badge-highlight.active { background: #fefcbf; color: #744210; border-color: #ecc94b; }
+        .badge-highlight.inactive { background: #edf2f7; color: var(--text-muted); }
+
+        /* Table */
+        .inquiry-table-wrapper { overflow-x: auto; }
+        .inquiry-table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .inquiry-table th, .inquiry-table td { padding: 12px 15px; border-bottom: 1px solid var(--border-color); text-align: left; }
+        .inquiry-table th { background-color: #f7fafc; color: var(--primary-blue); font-weight: 700; }
+        .inquiry-table tr:hover { background-color: #fdfdfd; }
+    </style>
+</head>
+<body>
+
+    <!-- Header (Visible when logged in) -->
+    <header class="admin-header" id="admin-header" style="display: none;">
+        <div class="admin-brand">
+            <i class="fas fa-crown"></i>
+            <span>Pearl Crown Events Portal</span>
+        </div>
+        <div class="admin-header-actions">
+            <a href="index.html" class="btn-header btn-back-site"><i class="fas fa-arrow-left"></i> View Website</a>
+            <button onclick="logoutAdmin()" class="btn-header btn-logout"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+    </header>
+
+    <!-- 1. LOGIN SCREEN -->
+    <div id="login-screen">
+        <div class="admin-card">
+            <i class="fas fa-crown login-logo"></i>
+            <h2 class="login-title">Admin Access</h2>
+            <form id="login-form" onsubmit="handleLogin(event)">
+                <input type="password" id="admin-password" class="login-input" placeholder="Enter Admin Password" required autofocus>
+                <button type="submit" class="btn-primary" id="login-btn">Log In</button>
+                <p id="login-error" class="error-msg">Incorrect password. Please try again.</p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. DASHBOARD SCREEN -->
+    <main class="admin-container" id="dashboard-screen" style="display: none;">
+        
+        <!-- Navigation Tabs -->
+        <div class="admin-tabs">
+            <button class="tab-btn active" onclick="switchTab('services', event)"><i class="fas fa-glass-cheers"></i> Ceremonies & Portfolios</button>
+            <button class="tab-btn" onclick="switchTab('highlights', event)"><i class="fas fa-star"></i> Homepage Highlights</button>
+            <button class="tab-btn" onclick="switchTab('inquiries', event)"><i class="fas fa-envelope-open-text"></i> Client Inquiries</button>
+        </div>
+
+        <!-- TAB 1: CEREMONIES & PORTFOLIOS -->
+        <div id="tab-services" class="tab-content active">
+            
+            <!-- Category Chooser & Description Editor -->
+            <div class="admin-card">
+                <div class="form-group">
+                    <label class="form-label">Select Ceremony or Service:</label>
+                    <select id="category-selector" class="form-select" onchange="onCategoryChange()">
+                        <!-- Populated dynamically via admin.js -->
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Ceremony Description:</label>
+                    <textarea id="category-description" class="form-textarea" placeholder="Write description for this category..."></textarea>
+                    <div style="margin-top: 10px; text-align: right;">
+                        <button type="button" class="btn-gold" onclick="saveCategoryDescription()"><i class="fas fa-save"></i> Save Description</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Upload Photos to Category -->
+            <div class="admin-card">
+                <h3 style="color: var(--primary-blue); margin-bottom: 15px;"><i class="fas fa-cloud-upload-alt"></i> Upload Photos to Selected Ceremony</h3>
+                
+                <input type="file" id="file-input" multiple accept="image/*" style="display: none;" onchange="handleFileSelect(event)">
+                <div class="upload-dropzone" onclick="document.getElementById('file-input').click()">
+                    <i class="fas fa-images"></i>
+                    <p style="font-weight: bold; color: var(--primary-blue);">Click to select high-res photos</p>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">Images will automatically be compressed in the browser before upload.</p>
+                </div>
+
+                <!-- Preview Queue -->
+                <div id="photo-queue-container" class="photo-queue"></div>
+
+                <div id="upload-actions" style="margin-top: 15px; display: none;">
+                    <button type="button" class="btn-primary" id="btn-upload-queue" onclick="uploadQueue()"><i class="fas fa-arrow-up"></i> Upload Photos</button>
+                    <p id="upload-progress-text" style="color: var(--primary-blue); font-weight: bold; margin-top: 10px; display: none;">Uploading images, please wait...</p>
+                </div>
+            </div>
+
+            <!-- Existing Photos in Category -->
+            <div class="admin-card">
+                <h3 style="color: var(--primary-blue); margin-bottom: 5px;"><i class="fas fa-photo-video"></i> Current Photos in Ceremony</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted);">Click "Highlight" to feature a photo in the homepage highlights section.</p>
+                <div id="category-gallery-grid" class="gallery-admin-grid">
+                    <!-- Photos populated dynamically via admin.js -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TAB 2: HOMEPAGE HIGHLIGHTS -->
+        <div id="tab-highlights" class="tab-content">
+            <div class="admin-card">
+                <h3 style="color: var(--primary-blue); margin-bottom: 10px;"><i class="fas fa-star" style="color: var(--accent-gold);"></i> "Our Highlights" on Homepage</h3>
+                <p style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 20px;">These photos are currently showcased in the main gallery on your homepage.</p>
+                <div id="highlights-gallery-grid" class="gallery-admin-grid">
+                    <!-- Highlights populated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 3: CLIENT INQUIRIES -->
+        <div id="tab-inquiries" class="tab-content">
+            <div class="admin-card">
+                <h3 style="color: var(--primary-blue); margin-bottom: 15px;"><i class="fas fa-inbox"></i> Incoming Client Inquiries</h3>
+                <div class="inquiry-table-wrapper">
+                    <table class="inquiry-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Client Name</th>
+                                <th>Phone Number</th>
+                                <th>Ceremony</th>
+                                <th>Message</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="inquiries-tbody">
+                            <!-- Inquiries populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Compressor.js CDN for in-browser client compression -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

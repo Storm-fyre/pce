@@ -4,11 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pearl Crown Events | Rajahmundry & Hyderabad</title>
-    <!-- Google Fonts -->
+    
+    <!-- Open Graph Meta Tags for Social & WhatsApp Sharing -->
+    <meta property="og:title" content="Pearl Crown Events | Making Your Celebrations Royal" />
+    <meta property="og:description" content="Premier event planning & management services in Rajahmundry & Hyderabad. Curating weddings, receptions, traditional ceremonies, and bespoke decor." />
+    <meta property="og:image" content="https://images.unsplash.com/photo-1519225468359-2996bc010854?w=1200&q=80" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Google Fonts & Font Awesome Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <!-- Dedicated Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
@@ -16,600 +26,13 @@
             emailjs.init("5fXE06EC7IGjMbuLQ");
         })();
     </script>
-
-    <style>
-        /* --- CSS VARIABLES & RESET --- */
-        :root {
-            --primary-blue: #0f1e56;
-            --accent-gold: #c5a059;
-            --white: #ffffff;
-            --light-gray: #f4f4f4;
-            --text-dark: #333333;
-            --whatsapp-green: #25d366;
-            --header-height: 80px;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Lato', sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            background-color: var(--white);
-            padding-top: var(--header-height);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            color: var(--primary-blue);
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: 0.3s;
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        /* --- UTILITY CLASSES --- */
-        .hidden {
-            display: none !important;
-        }
-
-        .view-container {
-            /* This ensures transitions between views are snappy */
-            width: 100%;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- HEADER & NAVIGATION --- */
-        header {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            padding: 0 5%;
-            height: var(--header-height);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: center; 
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-right: auto; 
-            white-space: nowrap;
-            cursor: pointer;
-        }
-
-        .logo i {
-            color: var(--accent-gold);
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-        }
-
-        nav ul {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
-
-        nav a {
-            color: var(--white);
-            font-weight: 400;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            cursor: pointer;
-        }
-
-        nav a:hover {
-            color: var(--accent-gold);
-        }
-
-        .cta-btn {
-            background-color: var(--accent-gold);
-            color: var(--primary-blue);
-            padding: 0 25px;
-            height: 45px; 
-            border-radius: 5px;
-            font-weight: bold;
-            display: inline-flex; 
-            align-items: center;
-            justify-content: center;
-            margin-left: 30px; 
-            border: none;
-            cursor: pointer;
-        }
-
-        .cta-btn:hover {
-            background-color: #e0b86a;
-        }
-
-        .menu-toggle {
-            display: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: var(--white);
-            padding: 10px;
-        }
-
-        /* --- HERO SECTION --- */
-        #home-hero {
-            height: 90vh; 
-            min-height: 500px;
-            background: linear-gradient(rgba(15, 30, 86, 0.7), rgba(15, 30, 86, 0.7)), url('https://images.unsplash.com/photo-1519225468359-2996bc010854?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-            padding: 0 20px;
-            margin-top: -80px; /* Offset header height */
-        }
-
-        #home-hero h1 {
-            font-size: 3.5rem;
-            color: var(--white);
-            margin-bottom: 1rem;
-        }
-
-        #home-hero p.tagline {
-            font-size: 1.2rem;
-            font-style: italic;
-            margin-bottom: 2rem;
-            max-width: 800px;
-        }
-
-        .btn-main {
-            padding: 15px 30px;
-            background-color: var(--accent-gold);
-            color: var(--primary-blue);
-            font-size: 1.1rem;
-            font-weight: bold;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            display: inline-block;
-        }
-
-        /* --- ABOUT SECTION --- */
-        #about {
-            padding: 80px 10%;
-            text-align: center;
-            background-color: var(--white);
-        }
-
-        .section-title-wrapper {
-            margin-bottom: 20px;
-            display: inline-block;
-            position: relative;
-        }
-
-        .welcome-text {
-            display: block;
-            font-family: 'Lato', sans-serif;
-            font-size: 1.1rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: #777;
-            margin-bottom: 5px;
-        }
-
-        .brand-name-text {
-            display: block;
-            font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            font-weight: 700;
-            color: var(--primary-blue);
-            line-height: 1.2;
-            text-transform: uppercase;
-        }
-
-        .section-title-wrapper::after {
-            content: '';
-            display: block;
-            width: 80px;
-            height: 3px;
-            background-color: var(--accent-gold);
-            margin: 15px auto 0;
-        }
-
-        .owner-name {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-blue);
-            margin-top: 20px;
-        }
-
-        /* --- SERVICES LIST SECTION --- */
-        #services-list {
-            padding: 80px 5%;
-            background-color: var(--light-gray);
-        }
-
-        .services-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .service-column {
-            flex: 1;
-            min-width: 300px;
-            background: var(--white);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-top: 5px solid var(--primary-blue);
-        }
-
-        .service-column h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        /* Clickable Service Links */
-        .service-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .service-list li:hover {
-            padding-left: 10px;
-            background-color: #f9f9f9;
-        }
-
-        .service-list li i {
-            color: var(--accent-gold);
-            margin-right: 15px;
-        }
-
-        .service-list li span {
-            color: var(--text-dark);
-            width: 100%;
-            display: block;
-        }
-
-        .service-list li:hover span {
-            color: var(--primary-blue);
-            font-weight: 700;
-        }
-
-        /* --- INDIVIDUAL SERVICE PAGE STYLING --- */
-        .service-page-header {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            padding: 40px 5% 20px 5%;
-            text-align: center;
-        }
-        
-        .back-btn-wrapper {
-            text-align: left;
-            margin-bottom: 10px;
-        }
-
-        .back-btn {
-            color: var(--accent-gold);
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 1.1rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .back-btn:hover {
-            color: var(--white);
-            text-decoration: underline;
-        }
-
-        .detail-section {
-            padding: 60px 5%;
-            background-color: var(--white);
-            min-height: 60vh;
-        }
-
-        .detail-content {
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto 40px auto;
-        }
-
-        .detail-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .detail-content h2::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 3px;
-            background-color: var(--accent-gold);
-            margin: 10px auto;
-        }
-
-        .detail-content p {
-            font-size: 1.1rem;
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        /* --- GALLERY GRID --- */
-        #gallery-preview, .detail-gallery {
-            padding: 40px 0;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .gallery-item {
-            height: 250px;
-            overflow: hidden;
-            border-radius: 8px;
-            position: relative;
-            background-color: #eee;
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
-        /* --- LOCATIONS BANNER --- */
-        .locations-banner {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            text-align: center;
-            padding: 40px;
-        }
-        .locations-banner h3 {
-            color: var(--accent-gold);
-        }
-
-        /* --- CONTACT SECTION --- */
-        #contact {
-            padding: 80px 10%;
-            background-color: var(--white);
-        }
-
-        .contact-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .contact-info, .contact-form {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .info-item {
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-        }
-
-        .info-item i {
-            font-size: 1.5rem;
-            color: var(--primary-blue);
-            width: 40px;
-            margin-right: 15px;
-            text-align: center;
-        }
-
-        .info-item .label {
-            font-weight: bold;
-            display: block;
-            color: var(--text-dark);
-        }
-
-        form input, form textarea, form select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: inherit;
-        }
-
-        form button {
-            background-color: var(--primary-blue);
-            color: var(--white);
-            padding: 12px 30px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: 0.3s;
-        }
-
-        form button:hover {
-            background-color: #1a2f7a;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background-color: #0a143a;
-            color: #ccc;
-            text-align: center;
-            padding: 20px;
-            font-size: 0.9rem;
-            margin-top: auto;
-        }
-
-        /* --- WHATSAPP FLOAT --- */
-        .whatsapp-float {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 40px;
-            right: 40px;
-            background-color: var(--whatsapp-green);
-            color: #FFF;
-            border-radius: 50px;
-            text-align: center;
-            font-size: 30px;
-            box-shadow: 2px 2px 3px #999;
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.3s;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-        }
-
-        /* --- MODAL --- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(15, 30, 86, 0.85);
-            z-index: 2000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.3s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal-box {
-            background-color: var(--white);
-            width: 90%;
-            max-width: 400px;
-            padding: 40px 30px;
-            border-radius: 10px;
-            text-align: center;
-            border: 2px solid var(--accent-gold);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            transform: translateY(20px);
-            transition: transform 0.3s ease;
-        }
-
-        .modal-overlay.active .modal-box {
-            transform: translateY(0);
-        }
-
-        .modal-icon {
-            font-size: 3rem;
-            color: var(--accent-gold);
-            margin-bottom: 20px;
-        }
-
-        .modal-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--primary-blue);
-            margin-bottom: 15px;
-        }
-
-        .modal-btn {
-            margin-top: 20px;
-            width: 100%;
-            margin-left: 0;
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 768px) {
-            header { justify-content: space-between; }
-            .logo { margin-right: 0; font-size: 1.1rem; }
-            .menu-toggle { display: block; }
-            .cta-btn.desktop-only { display: none; }
-            
-            nav {
-                position: absolute;
-                top: var(--header-height);
-                left: 0;
-                width: 100%;
-                background-color: var(--primary-blue);
-                flex-direction: column;
-                display: none; 
-                padding: 20px 0;
-            }
-            nav.active { display: flex; }
-            nav ul { flex-direction: column; width: 100%; gap: 0; }
-            nav ul li { width: 100%; text-align: center; }
-            nav a { display: block; padding: 15px; width: 100%; font-size: 1.1rem; }
-            .mobile-cta { margin-top: 15px; display: inline-block; }
-            .mobile-cta .cta-btn { margin-left: 0; width: 80%; }
-            
-            #home-hero h1 { font-size: 2.5rem; }
-            .brand-name-text { font-size: 1.8rem; }
-            .welcome-text { font-size: 0.9rem; }
-            .whatsapp-float { width: 50px; height: 50px; bottom: 20px; right: 20px; font-size: 25px; }
-        }
-        @media (min-width: 769px) { .mobile-only { display: none; } }
-    </style>
 </head>
 <body>
 
     <!-- Header & Navigation (Always Visible) -->
     <header>
-        <div class="logo" onclick="navigateToHome()">
+        <!-- TRIPLE-TAP SECRET TARGET ON LOGO -->
+        <div class="logo" id="secret-admin-trigger" title="Pearl Crown Events">
             <i class="fas fa-crown"></i> Pearl Crown Events
         </div>
 
@@ -666,6 +89,7 @@
             <h2 class="section-title" style="text-align: center; display:block;">What We Do</h2>
             <div class="services-container">
                 
+                <!-- Events Column -->
                 <div class="service-column">
                     <h3><i class="fas fa-glass-cheers"></i> Events</h3>
                     <ul class="service-list">
@@ -681,6 +105,7 @@
                     </ul>
                 </div>
 
+                <!-- Services Column -->
                 <div class="service-column">
                     <h3><i class="fas fa-tasks"></i> Services</h3>
                     <ul class="service-list">
@@ -700,20 +125,17 @@
             <h3><i class="fas fa-map-pin"></i> Serving Rajahmundry & Hyderabad</h3>
         </div>
 
-        <!-- Main Gallery Section -->
+        <!-- Highlights Gallery Section (Loaded Dynamically) -->
         <section id="gallery-preview">
             <h2 class="section-title" style="text-align: center; display:block;">Our Highlights</h2>
-            <p style="text-align: center;">A glimpse of our best work</p>
+            <p style="text-align: center; color: #666;">A glimpse of our curated celebrations</p>
             
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Main Gallery/1.jpg" alt="Highlight 1"></div>
-                <div class="gallery-item"><img src="Media/Main Gallery/2.jpg" alt="Highlight 2"></div>
-                <div class="gallery-item"><img src="Media/Main Gallery/3.jpg" alt="Highlight 3"></div>
-                <div class="gallery-item"><img src="Media/Main Gallery/4.jpg" alt="Highlight 4"></div>
+            <div class="gallery-grid" id="homepage-highlights-grid">
+                <!-- Populated dynamically via script.js -->
             </div>
         </section>
 
-        <!-- Contact Section (Shared in Home View) -->
+        <!-- Contact Section -->
         <section id="contact">
             <h2 class="section-title" style="text-align: center; display:block;">Contact Us</h2>
             <div class="contact-container">
@@ -766,7 +188,7 @@
     </div><!-- End Home View -->
 
 
-    <!-- VIEW 2: SERVICE DETAILS CONTAINER (Hidden by default) -->
+    <!-- VIEW 2: DYNAMIC SERVICE DETAILS CONTAINER (Replaces the 14 hardcoded blocks) -->
     <div id="service-view" class="view-container hidden">
         
         <div class="service-page-header">
@@ -777,226 +199,15 @@
             </div>
         </div>
 
-        <!-- INDIVIDUAL SERVICE SECTIONS (Only one visible at a time) -->
-        
-        <!-- Wedding -->
-        <div id="wedding" class="detail-section hidden">
+        <div class="detail-section">
             <div class="detail-content">
-                <h2>Wedding</h2>
-                <p>At Pearl Crown Events, we believe a wedding is not just an event—it is a beautiful story of love, emotions, and togetherness. We feel truly honored to have curated this special day for the Bride and Groom.</p>
+                <h2 id="dynamic-service-title">Ceremony Details</h2>
+                <p id="dynamic-service-description">Loading celebration details...</p>
                 <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
             </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Wedding/1.jpg" alt="Wedding 1"></div>
-                <div class="gallery-item"><img src="Media/Wedding/2.jpg" alt="Wedding 2"></div>
-                <div class="gallery-item"><img src="Media/Wedding/3.jpg" alt="Wedding 3"></div>
-                <div class="gallery-item"><img src="Media/Wedding/4.jpg" alt="Wedding 4"></div>
-            </div>
-        </div>
-
-        <!-- Venue Management -->
-        <div id="venue" class="detail-section hidden">
-            <div class="detail-content">
-                <h2>Venue Management</h2>
-                <p>At Pearl Crown Events, venue management is the foundation of a successful event. From selecting the perfect location to coordinating every logistical detail, we ensure the venue complements the vision and purpose of your celebration.</p>
-                <p>Our team carefully manages layout planning, vendor coordination, guest flow, décor alignment, power backup, safety measures, and on-ground supervision. Every element is handled with precision so that the event runs smoothly, on time, and stress-free.</p>
-                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Venue Management/1.jpg" alt="Venue 1"></div>
-                <div class="gallery-item"><img src="Media/Venue Management/2.jpg" alt="Venue 2"></div>
-                <div class="gallery-item"><img src="Media/Venue Management/3.jpg" alt="Venue 3"></div>
-                <div class="gallery-item"><img src="Media/Venue Management/4.jpg" alt="Venue 4"></div>
-            </div>
-        </div>
-
-        <!-- Design & Decor (6 Images) -->
-        <div id="design" class="detail-section hidden">
-            <div class="detail-content">
-                <h2>Design & Decor</h2>
-                <p>Coming Soon. We create breathtaking environments that reflect your personal style.</p>
-                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Design and Decor/1.jpg" alt="Design 1"></div>
-                <div class="gallery-item"><img src="Media/Design and Decor/2.jpg" alt="Design 2"></div>
-                <div class="gallery-item"><img src="Media/Design and Decor/3.jpg" alt="Design 3"></div>
-                <div class="gallery-item"><img src="Media/Design and Decor/4.jpg" alt="Design 4"></div>
-                <div class="gallery-item"><img src="Media/Design and Decor/5.jpg" alt="Design 5"></div>
-                <div class="gallery-item"><img src="Media/Design and Decor/6.jpg" alt="Design 6"></div>
-                <div class="gallery-item"><img src="Media/Design and Decor/7.jpg" alt="Design 7"></div>
-                <div class="gallery-item"><img src="Media/Design and Decor/8.jpg" alt="Design 8"></div>
-                <div class="gallery-item"><img src="Media/Design and Decor/9.jpg" alt="Design 9"></div>
-                <div class="gallery-item"><img src="Media/Design and Decor/10.jpg" alt="Design 10"></div>
-                <div class="gallery-item"><img src="Media/Design and Decor/11.jpg" alt="Design 11"></div>
-                <div class="gallery-item"><img src="Media/Design and Decor/12.jpg" alt="Design 12"></div>
-            </div>
-        </div>
-
-        <!-- Engagement -->
-        <div id="engagement" class="detail-section hidden">
-            <div class="detail-content">
-                <h2>Engagement</h2>
-                <p>Coming Soon. Celebrating the beginning of your forever.</p>
-                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Engagement/1.jpg" alt="Img 1"></div>
-                <div class="gallery-item"><img src="Media/Engagement/2.jpg" alt="Img 2"></div>
-                <div class="gallery-item"><img src="Media/Engagement/3.jpg" alt="Img 3"></div>
-                <div class="gallery-item"><img src="Media/Engagement/4.jpg" alt="Img 4"></div>
-            </div>
-        </div>
-
-        <!-- Anniversary -->
-        <div id="anniversary" class="detail-section hidden">
-            <div class="detail-content">
-                <h2>Anniversary Parties</h2>
-                <p>Coming Soon. Reliving the beautiful journey of love.</p>
-                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Anniversary Parties/1.jpg" alt="Img 1"></div>
-                <div class="gallery-item"><img src="Media/Anniversary Parties/2.jpg" alt="Img 2"></div>
-                <div class="gallery-item"><img src="Media/Anniversary Parties/3.jpg" alt="Img 3"></div>
-                <div class="gallery-item"><img src="Media/Anniversary Parties/4.jpg" alt="Img 4"></div>
-            </div>
-        </div>
-
-        <!-- Birthday -->
-        <div id="birthday" class="detail-section hidden">
-            <div class="detail-content">
-                <h2>Birthday Parties</h2>
-                <p>Coming Soon. Fun, excitement, and memories for all ages.</p>
-                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Birthday Parties/1.jpg" alt="Img 1"></div>
-                <div class="gallery-item"><img src="Media/Birthday Parties/2.jpg" alt="Img 2"></div>
-                <div class="gallery-item"><img src="Media/Birthday Parties/3.jpg" alt="Img 3"></div>
-                <div class="gallery-item"><img src="Media/Birthday Parties/4.jpg" alt="Img 4"></div>
-            </div>
-        </div>
-
-        <!-- Cradle -->
-        <div id="cradle" class="detail-section hidden">
-            <div class="detail-content">
-                <h2>Cradle Ceremonies</h2>
-                <p>Coming Soon. Welcoming the newest member of your family with joy.</p>
-                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Cradle Ceremonies/1.jpg" alt="Img 1"></div>
-                <div class="gallery-item"><img src="Media/Cradle Ceremonies/2.jpg" alt="Img 2"></div>
-                <div class="gallery-item"><img src="Media/Cradle Ceremonies/3.jpg" alt="Img 3"></div>
-                <div class="gallery-item"><img src="Media/Cradle Ceremonies/4.jpg" alt="Img 4"></div>
-            </div>
-        </div>
-
-        <!-- Bommala -->
-        <div id="bommala" class="detail-section hidden">
-            <div class="detail-content">
-                <h2>Bommala Koluvu</h2>
-                <p>Coming Soon. Traditional setups with modern elegance.</p>
-                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Bommala Koluvu/1.jpg" alt="Img 1"></div>
-                <div class="gallery-item"><img src="Media/Bommala Koluvu/2.jpg" alt="Img 2"></div>
-                <div class="gallery-item"><img src="Media/Bommala Koluvu/3.jpg" alt="Img 3"></div>
-                <div class="gallery-item"><img src="Media/Bommala Koluvu/4.jpg" alt="Img 4"></div>
-            </div>
-        </div>
-
-        <!-- Sangeet -->
-        <div id="sangeet" class="detail-section hidden">
-            <div class="detail-content">
-                <h2>Sangeet</h2>
-                <p>Coming Soon. Music, dance, and vibrant celebrations.</p>
-                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Sangeet/1.jpg" alt="Img 1"></div>
-                <div class="gallery-item"><img src="Media/Sangeet/2.jpg" alt="Img 2"></div>
-                <div class="gallery-item"><img src="Media/Sangeet/3.jpg" alt="Img 3"></div>
-                <div class="gallery-item"><img src="Media/Sangeet/4.jpg" alt="Img 4"></div>
-            </div>
-        </div>
-
-        <!-- Mehandi -->
-        <div id="mehandi" class="detail-section hidden">
-            <div class="detail-content">
-                <h2>Mehandi Function</h2>
-                <p>Coming Soon. Colorful patterns and festive vibes.</p>
-                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Mehandi Function/1.jpg" alt="Img 1"></div>
-                <div class="gallery-item"><img src="Media/Mehandi Function/2.jpg" alt="Img 2"></div>
-                <div class="gallery-item"><img src="Media/Mehandi Function/3.jpg" alt="Img 3"></div>
-                <div class="gallery-item"><img src="Media/Mehandi Function/4.jpg" alt="Img 4"></div>
-            </div>
-        </div>
-
-        <!-- Half Saree -->
-        <div id="halfsaree" class="detail-section hidden">
-            <div class="detail-content">
-                <h2>Half-Saree Function</h2>
-                <p>Coming Soon. A traditional celebration of grace.</p>
-                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Half-Saree Function/1.jpg" alt="Img 1"></div>
-                <div class="gallery-item"><img src="Media/Half-Saree Function/2.jpg" alt="Img 2"></div>
-                <div class="gallery-item"><img src="Media/Half-Saree Function/3.jpg" alt="Img 3"></div>
-                <div class="gallery-item"><img src="Media/Half-Saree Function/4.jpg" alt="Img 4"></div>
-            </div>
-        </div>
-
-        <!-- Planning -->
-        <div id="planning" class="detail-section hidden">
-            <div class="detail-content">
-                <h2>Planning & Concept</h2>
-                <p>Coming Soon. Blueprinting your perfect event.</p>
-                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Planning and Concept/1.jpg" alt="Img 1"></div>
-                <div class="gallery-item"><img src="Media/Planning and Concept/2.jpg" alt="Img 2"></div>
-                <div class="gallery-item"><img src="Media/Planning and Concept/3.jpg" alt="Img 3"></div>
-                <div class="gallery-item"><img src="Media/Planning and Concept/4.jpg" alt="Img 4"></div>
-                <div class="gallery-item"><img src="Media/Planning and Concept/5.jpg" alt="Img 5"></div>
-                <div class="gallery-item"><img src="Media/Planning and Concept/6.jpg" alt="Img 6"></div>
-            </div>
-        </div>
-
-        <!-- Catering -->
-        <div id="catering" class="detail-section hidden">
-            <div class="detail-content">
-                <h2>Catering Services</h2>
-                <p>Coming Soon. Delicious flavors to delight your guests.</p>
-                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Catering Services/1.jpg" alt="Img 1"></div>
-                <div class="gallery-item"><img src="Media/Catering Services/2.jpg" alt="Img 2"></div>
-                <div class="gallery-item"><img src="Media/Catering Services/3.jpg" alt="Img 3"></div>
-                <div class="gallery-item"><img src="Media/Catering Services/4.jpg" alt="Img 4"></div>
-            </div>
-        </div>
-
-        <!-- Media Mgmt -->
-        <div id="media" class="detail-section hidden">
-            <div class="detail-content">
-                <h2>Media Management</h2>
-                <p>Coming Soon. Capturing moments that last forever.</p>
-                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item"><img src="Media/Media Management/1.jpg" alt="Img 1"></div>
-                <div class="gallery-item"><img src="Media/Media Management/2.jpg" alt="Img 2"></div>
-                <div class="gallery-item"><img src="Media/Media Management/3.jpg" alt="Img 3"></div>
-                <div class="gallery-item"><img src="Media/Media Management/4.jpg" alt="Img 4"></div>
+            
+            <div class="gallery-grid" id="dynamic-service-gallery">
+                <!-- Dynamically populated photos from Cloudflare R2 -->
             </div>
         </div>
 
@@ -1005,7 +216,7 @@
 
     <!-- Footer (Always Visible) -->
     <footer>
-        <p>&copy; 2025 Pearl Crown Events. All Rights Reserved.</p>
+        <p>&copy; <span id="current-year"></span> Pearl Crown Events. All Rights Reserved.</p>
         <p>Designed by Stormfyre</p>
     </footer>
 
@@ -1014,7 +225,7 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- CUSTOM ROYAL MODAL -->
+    <!-- CUSTOM ROYAL CONFIRMATION MODAL -->
     <div class="modal-overlay" id="successModal">
         <div class="modal-box">
             <i class="fas fa-crown modal-icon"></i>
@@ -1025,135 +236,7 @@
         </div>
     </div>
 
-    <!-- JavaScript (The Logic) -->
-    <script>
-        // --- MOBILE MENU LOGIC ---
-        const menuToggle = document.getElementById('mobile-menu');
-        const navbar = document.getElementById('navbar');
-
-        menuToggle.addEventListener('click', () => {
-            navbar.classList.toggle('active');
-        });
-
-        // --- NAVIGATION STATE MANAGEMENT ---
-        const homeView = document.getElementById('home-view');
-        const serviceView = document.getElementById('service-view');
-        const allServices = document.querySelectorAll('.detail-section');
-        
-        // Variable to remember where the user was on the home page
-        let lastScrollPosition = 0;
-
-        // Function 1: Open a specific service
-        function openService(serviceId) {
-            // SAVE CURRENT SCROLL POSITION BEFORE LEAVING HOME
-            lastScrollPosition = window.scrollY;
-
-            // Hide Home, Show Service Wrapper
-            homeView.classList.add('hidden');
-            serviceView.classList.remove('hidden');
-
-            // Hide all individual services first
-            allServices.forEach(el => el.classList.add('hidden'));
-
-            // Show the requested service
-            const activeService = document.getElementById(serviceId);
-            if(activeService) {
-                activeService.classList.remove('hidden');
-            }
-
-            // Close mobile menu if open
-            navbar.classList.remove('active');
-
-            // Scroll to top of service page
-            window.scrollTo(0, 0);
-
-            // Add to Browser History (Making Back Button Work)
-            history.pushState({view: 'service', id: serviceId}, "", "#" + serviceId);
-        }
-
-        // Function 2: Go back to Home
-        function navigateToHome(scrollToId = null) {
-            // Show Home, Hide Service Wrapper
-            serviceView.classList.add('hidden');
-            homeView.classList.remove('hidden');
-
-            // Close mobile menu if open
-            navbar.classList.remove('active');
-
-            if (scrollToId) {
-                // If clicking a nav link (Home, About, etc.), go to that specific section
-                const element = document.getElementById(scrollToId);
-                if (element) {
-                    setTimeout(() => {
-                        element.scrollIntoView({behavior: 'smooth'});
-                    }, 50);
-                }
-            } else {
-                // If clicking "Back to Home", RESTORE previous scroll position
-                setTimeout(() => {
-                    window.scrollTo({
-                        top: lastScrollPosition, 
-                        behavior: 'smooth'
-                    });
-                }, 10);
-            }
-
-            // Update URL to remove hash without reloading
-            if(history.state && history.state.view === 'service') {
-                 history.pushState({view: 'home'}, "", " ");
-            }
-        }
-
-        // Function 3: "Enquire Now" button inside a service
-        function enquireNow() {
-            // Go back to home view
-            serviceView.classList.add('hidden');
-            homeView.classList.remove('hidden');
-            
-            // Scroll to contact form
-            setTimeout(() => {
-                document.getElementById('contact').scrollIntoView({behavior: 'smooth'});
-            }, 50);
-
-            // Update history
-            history.pushState({view: 'home'}, "", " ");
-        }
-
-        // Function 4: HANDLE BROWSER BACK BUTTON
-        window.onpopstate = function(event) {
-            if (event.state && event.state.view === 'service') {
-                // If history says we are in a service, show it
-                openService(event.state.id);
-            } else {
-                // Default fallback: Show Home and restore scroll via browser default behavior
-                serviceView.classList.add('hidden');
-                homeView.classList.remove('hidden');
-            }
-        };
-
-        // --- EMAIL JS SEND LOGIC ---
-        const modal = document.getElementById('successModal');
-        function closeModal() { modal.classList.remove('active'); }
-
-        function submitForm(event) {
-            event.preventDefault(); 
-            const btn = event.target.querySelector('button[type="submit"]');
-            const originalText = btn.innerText;
-            btn.innerText = 'Sending...';
-            btn.disabled = true;
-
-            emailjs.sendForm('service_fgzclff', 'template_936ae1v', '#bookingForm')
-                .then(function() {
-                    btn.innerText = originalText;
-                    btn.disabled = false;
-                    document.getElementById("bookingForm").reset();
-                    modal.classList.add('active'); 
-                }, function(error) {
-                    btn.innerText = originalText;
-                    btn.disabled = false;
-                    alert("Unable to send request. Please call us directly.");
-                });
-        }
-    </script>
+    <!-- Dedicated Script -->
+    <script src="script.js"></script>
 </body>
 </html>

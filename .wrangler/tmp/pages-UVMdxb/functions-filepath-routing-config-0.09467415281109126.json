@@ -1,0 +1,93 @@
+{
+  "routes": [
+    {
+      "routePath": "/api/auth",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/auth.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/gallery",
+      "mountPath": "/api",
+      "method": "DELETE",
+      "module": [
+        "api/gallery.js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/gallery",
+      "mountPath": "/api",
+      "method": "GET",
+      "module": [
+        "api/gallery.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/gallery",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/gallery.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/gallery",
+      "mountPath": "/api",
+      "method": "PUT",
+      "module": [
+        "api/gallery.js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/inquiries",
+      "mountPath": "/api",
+      "method": "DELETE",
+      "module": [
+        "api/inquiries.js:onRequestDelete"
+      ]
+    },
+    {
+      "routePath": "/api/inquiries",
+      "mountPath": "/api",
+      "method": "GET",
+      "module": [
+        "api/inquiries.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/inquiries",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/inquiries.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/services",
+      "mountPath": "/api",
+      "method": "GET",
+      "module": [
+        "api/services.js:onRequestGet"
+      ]
+    },
+    {
+      "routePath": "/api/services",
+      "mountPath": "/api",
+      "method": "PUT",
+      "module": [
+        "api/services.js:onRequestPut"
+      ]
+    },
+    {
+      "routePath": "/api/upload",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/upload.js:onRequestPost"
+      ]
+    }
+  ],
+  "baseURL": "/"
+}
