@@ -92,7 +92,7 @@ async function loadHomepageHighlights() {
                 </div>
             `).join("");
         } else {
-            // Elegant fallback if no highlights are marked yet
+            // Fallback highlights if none are starred yet
             grid.innerHTML = `
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1519225468359-2996bc010854?w=600&q=80" alt="Highlight"></div>
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80" alt="Highlight"></div>
@@ -132,7 +132,6 @@ async function openService(serviceId) {
         titleEl.textContent = cached.title;
         descEl.textContent = cached.description || "Every detail curated with royal excellence.";
     } else {
-        // Fallback fetch if not yet in cache
         titleEl.textContent = "Loading Ceremony...";
         descEl.textContent = "";
         try {
@@ -224,7 +223,7 @@ window.onpopstate = function(event) {
 };
 
 // =========================================================
-// CONTACT FORM: EMAILJS + CLOUDFLARE D1 INQUIRIES
+// CONTACT FORM: DIRECT CLOUDFLARE D1 INQUIRY SUBMISSION
 // =========================================================
 const modal = document.getElementById("successModal");
 function closeModal() {
@@ -240,7 +239,7 @@ async function submitForm(event) {
     btn.innerText = "Sending Request...";
     btn.disabled = true;
 
-    // Collect data for database backup
+    // Collect data for database submission
     const formData = new FormData(form);
     const inquiryPayload = {
         user_name: formData.get("user_name"),
@@ -250,17 +249,17 @@ async function submitForm(event) {
     };
 
     try {
-        // 1. Save permanent backup copy in D1 Database
-        fetch("/api/inquiries", {
+        const res = await fetch("/api/inquiries", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(inquiryPayload)
-        }).catch(err => console.warn("D1 backup notice:", err));
+        });
 
-        // 2. Send instant notification email via EmailJS
-        await emailjs.sendForm("service_fgzclff", "template_936ae1v", "#bookingForm");
+        if (!res.ok) {
+            throw new Error("Failed to save inquiry to database");
+        }
 
-        // Success
+        // Succeeded: Reset UI, clear form, and trigger the royal modal immediately
         btn.innerText = originalText;
         btn.disabled = false;
         form.reset();
