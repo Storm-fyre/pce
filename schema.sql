@@ -1,8 +1,8 @@
 -- 1. Services & Events Table
 DROP TABLE IF EXISTS services;
 CREATE TABLE services (
-    id TEXT PRIMARY KEY,               -- e.g., 'wedding', 'venue', 'cradle'
-    title TEXT NOT NULL,              -- Display Name (e.g., 'Cradle Ceremonies')
+    id TEXT PRIMARY KEY,               -- e.g., 'wedding', 'wedding__food_stalls', etc.
+    title TEXT NOT NULL,              -- Display Name
     type TEXT NOT NULL,               -- 'event' or 'service'
     description TEXT,                 -- Detailed write-up
     display_order INTEGER DEFAULT 0   -- Display sequence
@@ -12,12 +12,11 @@ CREATE TABLE services (
 DROP TABLE IF EXISTS gallery_photos;
 CREATE TABLE gallery_photos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    service_id TEXT NOT NULL,         -- Links to services.id or 'highlights'
+    service_id TEXT NOT NULL,         -- Links to services.id or composite 'wedding__design'
     image_url TEXT NOT NULL,          -- Cloudflare R2 public URL
     caption TEXT,
     is_highlight INTEGER DEFAULT 0,   -- 1 = Shows on Homepage "Our Highlights"
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (service_id) REFERENCES services(id) ON DELETE CASCADE
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- 3. Customer Inquiries / Leads Table
@@ -28,7 +27,7 @@ CREATE TABLE inquiries (
     phone_number TEXT NOT NULL,
     event_type TEXT NOT NULL,
     message TEXT NOT NULL,
-    status TEXT DEFAULT 'New',         -- 'New', 'Contacted', 'Booked'
+    status TEXT DEFAULT 'New',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -72,10 +71,10 @@ INSERT INTO services (id, title, type, description, display_order) VALUES
 ('halfsaree', 'Half-Saree Function', 'event', 
  'A traditional celebration of grace and transition. Elegant temple-style backdrops, rich floral craftsmanship, and traditional grandeur.', 9);
 
--- Services
+-- Core Services
 INSERT INTO services (id, title, type, description, display_order) VALUES
 ('venue', 'Venue Management', 'service', 
- 'At Pearl Crown Events, venue management is the foundation of a successful event. From selecting the perfect location to coordinating every logistical detail, we ensure the venue complements the vision and purpose of your celebration. Our team carefully manages layout planning, vendor coordination, guest flow, décor alignment, power backup, safety measures, and on-ground supervision.', 10),
+ 'At Pearl Crown Events, venue management is the foundation of a successful event. From selecting the perfect location to coordinating every logistical detail, we ensure the venue complements the vision and purpose of your celebration.', 10),
 
 ('planning', 'Planning & Concept', 'service', 
  'Blueprinting your perfect event from inception to reality. We conceptualize cohesive themes, budget allocations, schedules, and complete execution blueprints.', 11),
@@ -86,10 +85,16 @@ INSERT INTO services (id, title, type, description, display_order) VALUES
 ('catering', 'Catering Services', 'service', 
  'Delicious flavors to delight your guests. Curating gourmet multi-cuisine menus, live stations, and impeccable banquet service presentation.', 13),
 
-('media', 'Media Management', 'service', 
- 'Capturing moments that last forever. Directing premium candid photography, cinematic wedding films, drone coverage, and prompt album deliveries.', 14);
+('food_stalls', 'Food Stalls', 'service', 
+ 'Delicious live food stalls and specialty counters tailored for festive celebrations. From live chaat and mocktails to dessert bars.', 14),
 
--- Pre-seed default settings
+('entertainment', 'Entertainment', 'service', 
+ 'Engaging live performances, celebrity anchors, DJs, and traditional music to create electrifying memories.', 15),
+
+('media', 'Media Management', 'service', 
+ 'Capturing moments that last forever. Directing premium candid photography, cinematic wedding films, drone coverage, and prompt album deliveries.', 16);
+
+-- Default Settings
 INSERT INTO site_settings (key, value) VALUES 
 ('contact_phone', '+91 73868 79771'),
 ('contact_email', 'pearlcrownevents5@gmail.com'),

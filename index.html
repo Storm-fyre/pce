@@ -13,7 +13,7 @@
     <meta name="twitter:card" content="summary_large_image" />
 
     <!-- Google Fonts & Font Awesome Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <!-- Dedicated Stylesheet -->
@@ -32,7 +32,7 @@
             <ul id="nav-list">
                 <li><a onclick="navigateToHome('home-hero')">Home</a></li>
                 <li><a onclick="navigateToHome('about')">About</a></li>
-                <li><a onclick="navigateToHome('services-list')">What We Do</a></li>
+                <li><a onclick="navigateToHome('services-list')">Events & Services</a></li>
                 <li><a onclick="navigateToHome('gallery-preview')">Gallery</a></li>
                 <li><a onclick="navigateToHome('contact')">Contact</a></li>
                 <li class="mobile-only mobile-cta">
@@ -48,7 +48,9 @@
         </div>
     </header>
 
+    <!-- ========================================================= -->
     <!-- VIEW 1: HOME CONTAINER -->
+    <!-- ========================================================= -->
     <div id="home-view" class="view-container">
         
         <!-- Hero Section -->
@@ -76,37 +78,138 @@
             <p><small>Event Planning & Management</small></p>
         </section>
 
-        <!-- Services List Section -->
+        <!-- Events & Capabilities Section -->
         <section id="services-list">
-            <h2 class="section-title" style="text-align: center; display:block;">What We Do</h2>
+            <h2 class="section-title" style="text-align: center; display:block;">Events & Capabilities</h2>
+            <p style="text-align: center; color: #666; margin-top: -15px; margin-bottom: 30px;">
+                Select any celebration below to view our curated portfolio and specialized services
+            </p>
+
             <div class="services-container">
                 
-                <!-- Events Column -->
-                <div class="service-column">
-                    <h3><i class="fas fa-glass-cheers"></i> Events</h3>
+                <!-- 1. Clickable Events Column -->
+                <div class="service-column event-clickable-card">
+                    <div class="column-header">
+                        <h3><i class="fas fa-glass-cheers"></i> Celebrations We Curate</h3>
+                        <span class="tap-hint"><i class="fas fa-mouse-pointer"></i> Tap any event to explore</span>
+                    </div>
                     <ul class="service-list">
-                        <li onclick="openService('wedding')"><i class="fas fa-arrow-right"></i> <span>Wedding</span></li>
-                        <li onclick="openService('engagement')"><i class="fas fa-arrow-right"></i> <span>Engagement</span></li>
-                        <li onclick="openService('anniversary')"><i class="fas fa-arrow-right"></i> <span>Anniversary Parties</span></li>
-                        <li onclick="openService('birthday')"><i class="fas fa-arrow-right"></i> <span>Birthday Parties</span></li>
-                        <li onclick="openService('cradle')"><i class="fas fa-arrow-right"></i> <span>Cradle Ceremonies</span></li>
-                        <li onclick="openService('bommala')"><i class="fas fa-arrow-right"></i> <span>Bommala Koluvu</span></li>
-                        <li onclick="openService('sangeet')"><i class="fas fa-arrow-right"></i> <span>Sangeet</span></li>
-                        <li onclick="openService('mehandi')"><i class="fas fa-arrow-right"></i> <span>Mehandi Function</span></li>
-                        <li onclick="openService('halfsaree')"><i class="fas fa-arrow-right"></i> <span>Half-Saree Function</span></li>
+                        <li onclick="openEvent('wedding')">
+                            <i class="fas fa-arrow-right"></i> 
+                            <span>Wedding</span>
+                            <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
+                        </li>
+                        <li onclick="openEvent('engagement')">
+                            <i class="fas fa-arrow-right"></i> 
+                            <span>Engagement</span>
+                            <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
+                        </li>
+                        <li onclick="openEvent('anniversary')">
+                            <i class="fas fa-arrow-right"></i> 
+                            <span>Anniversary Parties</span>
+                            <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
+                        </li>
+                        <li onclick="openEvent('birthday')">
+                            <i class="fas fa-arrow-right"></i> 
+                            <span>Birthday Parties</span>
+                            <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
+                        </li>
+                        <li onclick="openEvent('cradle')">
+                            <i class="fas fa-arrow-right"></i> 
+                            <span>Cradle Ceremonies</span>
+                            <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
+                        </li>
+                        <li onclick="openEvent('bommala')">
+                            <i class="fas fa-arrow-right"></i> 
+                            <span>Bommala Koluvu</span>
+                            <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
+                        </li>
+                        <li onclick="openEvent('sangeet')">
+                            <i class="fas fa-arrow-right"></i> 
+                            <span>Sangeet</span>
+                            <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
+                        </li>
+                        <li onclick="openEvent('mehandi')">
+                            <i class="fas fa-arrow-right"></i> 
+                            <span>Mehandi Function</span>
+                            <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
+                        </li>
+                        <li onclick="openEvent('halfsaree')">
+                            <i class="fas fa-arrow-right"></i> 
+                            <span>Half-Saree Function</span>
+                            <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
+                        </li>
                     </ul>
                 </div>
 
-                <!-- Services Column -->
-                <div class="service-column">
-                    <h3><i class="fas fa-tasks"></i> Services</h3>
-                    <ul class="service-list">
-                        <li onclick="openService('venue')"><i class="fas fa-arrow-right"></i> <span>Venue Management</span></li>
-                        <li onclick="openService('planning')"><i class="fas fa-arrow-right"></i> <span>Planning & Concept</span></li>
-                        <li onclick="openService('design')"><i class="fas fa-arrow-right"></i> <span>Design & Decor</span></li>
-                        <li onclick="openService('catering')"><i class="fas fa-arrow-right"></i> <span>Catering Services</span></li>
-                        <li onclick="openService('media')"><i class="fas fa-arrow-right"></i> <span>Media Management</span></li>
-                    </ul>
+                <!-- 2. Clearly Unclickable Services Showcase -->
+                <div class="service-column unclickable-showcase">
+                    <div class="column-header">
+                        <h3><i class="fas fa-sparkles"></i> Our Core Services</h3>
+                        <span class="static-pill"><i class="fas fa-check-circle"></i> Integrated across all celebrations</span>
+                    </div>
+                    
+                    <p class="showcase-desc">
+                        Every service is seamlessly tailored to whichever celebration you choose above:
+                    </p>
+
+                    <div class="capability-badges-grid">
+                        <div class="capability-badge">
+                            <i class="fas fa-hotel"></i>
+                            <div>
+                                <strong>Venue Management</strong>
+                                <small>Layouts, logistics & guest coordination</small>
+                            </div>
+                        </div>
+
+                        <div class="capability-badge">
+                            <i class="fas fa-drafting-compass"></i>
+                            <div>
+                                <strong>Planning & Concept</strong>
+                                <small>Master blueprints, budgets & timelines</small>
+                            </div>
+                        </div>
+
+                        <div class="capability-badge">
+                            <i class="fas fa-palette"></i>
+                            <div>
+                                <strong>Design & Decor</strong>
+                                <small>Grand mandaps, florals & stage lighting</small>
+                            </div>
+                        </div>
+
+                        <div class="capability-badge">
+                            <i class="fas fa-utensils"></i>
+                            <div>
+                                <strong>Catering Services</strong>
+                                <small>Royal multi-cuisine banquets</small>
+                            </div>
+                        </div>
+
+                        <div class="capability-badge">
+                            <i class="fas fa-store"></i>
+                            <div>
+                                <strong>Food Stalls</strong>
+                                <small>Live chaat, mocktail bars & sweet counters</small>
+                            </div>
+                        </div>
+
+                        <div class="capability-badge">
+                            <i class="fas fa-music"></i>
+                            <div>
+                                <strong>Entertainment</strong>
+                                <small>Live performers, DJs, anchoring & bands</small>
+                            </div>
+                        </div>
+
+                        <div class="capability-badge">
+                            <i class="fas fa-camera-retro"></i>
+                            <div>
+                                <strong>Media Management</strong>
+                                <small>Cinematic wedding films & photography</small>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -117,7 +220,7 @@
             <h3><i class="fas fa-map-pin"></i> Serving Rajahmundry & Hyderabad</h3>
         </div>
 
-        <!-- Highlights Gallery Section (Loaded Dynamically) -->
+        <!-- Highlights Gallery Section -->
         <section id="gallery-preview">
             <h2 class="section-title" style="text-align: center; display:block;">Our Highlights</h2>
             <p style="text-align: center; color: #666;">A glimpse of our curated celebrations</p>
@@ -159,18 +262,20 @@
                     <form id="bookingForm" onsubmit="submitForm(event)">
                         <input type="text" name="user_name" placeholder="Your Name" required>
                         <input type="tel" name="phone_number" placeholder="Phone Number" required>
-                        <select name="event_type" required>
-                            <option value="" disabled selected>Event Type</option>
+                        <select name="event_type" id="form-event-type" required>
+                            <option value="" disabled selected>Select Celebration</option>
                             <option value="Wedding">Wedding</option>
                             <option value="Engagement">Engagement</option>
+                            <option value="Anniversary">Anniversary</option>
                             <option value="Birthday">Birthday</option>
                             <option value="Cradle">Cradle Ceremony</option>
                             <option value="Bommala">Bommala Koluvu</option>
                             <option value="Sangeet">Sangeet</option>
+                            <option value="Mehandi">Mehandi Function</option>
                             <option value="HalfSaree">Half-Saree Function</option>
                             <option value="Other">Other</option>
                         </select>
-                        <textarea name="message" rows="5" placeholder="Tell us about your event (Date, Venue, etc.)" required></textarea>
+                        <textarea name="message" id="form-message" rows="5" placeholder="Tell us about your event (Date, Venue, Specific Services needed)" required></textarea>
                         <button type="submit">Send Enquiry</button>
                     </form>
                 </div>
@@ -180,27 +285,65 @@
     </div><!-- End Home View -->
 
 
-    <!-- VIEW 2: DYNAMIC SERVICE DETAILS CONTAINER -->
+    <!-- ========================================================= -->
+    <!-- VIEW 2: DYNAMIC EVENT & SERVICE CONTAINER -->
+    <!-- ========================================================= -->
     <div id="service-view" class="view-container hidden">
         
+        <!-- Navigation Breadcrumbs Top Bar -->
         <div class="service-page-header">
-            <div class="back-btn-wrapper">
-                <div class="back-btn" onclick="navigateToHome()">
-                    <i class="fas fa-arrow-left"></i> Back to Home
+            <div class="back-nav-container">
+                <nav class="royal-breadcrumbs" id="breadcrumb-bar">
+                    <!-- Populated dynamically via script.js -->
+                </nav>
+            </div>
+        </div>
+
+        <!-- 2.1: LEVEL 1 - MAIN EVENT OVERVIEW -->
+        <div id="event-level-view" class="detail-section">
+            <div class="detail-content">
+                <h2 id="dynamic-event-title">Celebration</h2>
+                <p id="dynamic-event-description"></p>
+                <button type="button" onclick="enquireCurrentContext()" class="btn-main royal-cta-btn">
+                    <i class="fas fa-crown"></i> Enquire Now
+                </button>
+            </div>
+            
+            <!-- Event General Photos (Empty & zero height if none exist) -->
+            <div class="gallery-grid" id="dynamic-event-gallery"></div>
+
+            <!-- Clickable Services List under this Event -->
+            <div class="event-services-wrapper">
+                <div class="section-title-wrapper" style="text-align: center; margin-bottom: 25px;">
+                    <span class="welcome-text">Tailored Capabilities</span>
+                    <h3 id="event-services-heading" style="font-size: 2rem; color: var(--primary-blue);">
+                        Services for this Celebration
+                    </h3>
+                    <p style="color: #666; font-size: 0.95rem; margin-top: 5px;">
+                        Click on any service below to view specific details and photos
+                    </p>
+                </div>
+
+                <div class="service-column nested-service-column">
+                    <ul class="service-list" id="event-services-list">
+                        <!-- Populated dynamically with 7 services via script.js -->
+                    </ul>
                 </div>
             </div>
         </div>
 
-        <div class="detail-section">
+        <!-- 2.2: LEVEL 2 - SUB-SERVICE DRILL DOWN (e.g., Wedding Design & Decor) -->
+        <div id="subservice-level-view" class="detail-section hidden">
             <div class="detail-content">
-                <h2 id="dynamic-service-title">Ceremony Details</h2>
-                <p id="dynamic-service-description">Loading celebration details...</p>
-                <a onclick="enquireNow()" class="btn-main" style="color:#0f1e56">Enquire Now</a>
+                <h2 id="dynamic-subservice-title">Ceremony Service</h2>
+                <p id="dynamic-subservice-description"></p>
+                <button type="button" onclick="enquireCurrentContext()" class="btn-main royal-cta-btn">
+                    <i class="fas fa-crown"></i> Enquire Now
+                </button>
             </div>
             
-            <div class="gallery-grid" id="dynamic-service-gallery">
-                <!-- Dynamically populated photos from Cloudflare R2 -->
-            </div>
+            <!-- Sub-Service Photos (Empty & zero height if none exist) -->
+            <div class="gallery-grid" id="dynamic-subservice-gallery"></div>
         </div>
 
     </div><!-- End Service View -->
@@ -217,7 +360,7 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- CUSTOM ROYAL CONFIRMATION MODAL -->
+    <!-- ROYAL CONFIRMATION MODAL -->
     <div class="modal-overlay" id="successModal">
         <div class="modal-box">
             <i class="fas fa-crown modal-icon"></i>

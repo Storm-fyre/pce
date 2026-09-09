@@ -1,8 +1,31 @@
-// admin.js
+// admin.js - Pearl Crown Events Admin Portal
 
 let token = localStorage.getItem("pceAdminToken");
-let allServices = [];
+let servicesCache = {};
 let uploadFileQueue = [];
+
+// Master lookup maps
+const EVENT_NAMES = {
+    "wedding": "Wedding",
+    "engagement": "Engagement",
+    "anniversary": "Anniversary Parties",
+    "birthday": "Birthday Parties",
+    "cradle": "Cradle Ceremonies",
+    "bommala": "Bommala Koluvu",
+    "sangeet": "Sangeet",
+    "mehandi": "Mehandi Function",
+    "halfsaree": "Half-Saree Function"
+};
+
+const SERVICE_NAMES = {
+    "venue": "Venue Management",
+    "planning": "Planning & Concept",
+    "design": "Design & Decor",
+    "catering": "Catering Services",
+    "food_stalls": "Food Stalls",
+    "entertainment": "Entertainment",
+    "media": "Media Management"
+};
 
 // --- XSS Sanitization Helper ---
 function escapeHTML(str) {
@@ -86,53 +109,92 @@ function switchTab(tabId, event) {
     if (tabId === "inquiries") loadInquiries();
 }
 
-// --- Data Loading ---
+// --- Data Loading & Dual Hierarchy ---
 async function loadInitialData() {
-    await loadCategories();
-    onCategoryChange();
-}
-
-async function loadCategories() {
     try {
         const res = await fetch("/api/services");
-        allServices = await res.json();
-        
-        const selector = document.getElementById("category-selector");
-        selector.innerHTML = allServices.map(s => `
-            <option value="${escapeHTML(s.id)}">${escapeHTML(s.title)} (${s.type === 'event' ? 'Event' : 'Service'})</option>
-        `).join("");
-    } catch (err) {
-        console.error("Failed loading categories:", err);
+        const list = await res.json();
+        list.forEach(s => { servicesCache[s.id] = s; });
+    } catch (e) {
+        console.error("Failed caching services:", e);
     }
+    onScopeChange();
 }
 
-function onCategoryChange() {
-    const selectedId = document.getElementById("category-selector").value;
-    const currentService = allServices.find(s => s.id === selectedId);
-    
-    if (currentService) {
-        document.getElementById("category-description").value = currentService.description || "";
+// Returns composite key (e.g. 'wedding' OR 'wedding__food_stalls')
+function getActiveCategoryKey() {
+    const eventId = document.getElementById("event-selector").value;
+    const scope = document.getElementById("scope-selector").value;
+
+    if (scope === "overview") {
+        return eventId;
     }
-    loadCategoryGallery(selectedId);
+    return `${eventId}__${scope}`;
+}
+
+function getActiveReadableTitle() {
+    const eventId = document.getElementById("event-selector").value;
+    const scope = document.getElementById("scope-selector").value;
+    const eventName = EVENT_NAMES[eventId] || eventId;
+
+    if (scope === "overview") {
+        return { fullTitle: `${eventName} (General Overview)`, badge: "General" };
+    }
+    const serviceName = SERVICE_NAMES[scope] || scope;
+    return { fullTitle: `${eventName} > ${serviceName}`, badge: "Service" };
+}
+
+function onScopeChange() {
+    const activeKey = getActiveCategoryKey();
+    const meta = getActiveReadableTitle();
+
+    document.getElementById("active-target-title").textContent = meta.fullTitle;
+    document.getElementById("active-target-badge").textContent = meta.badge;
+
+    // Load description from cache or fetch
+    const cached = servicesCache[activeKey];
+    if (cached) {
+        document.getElementById("category-description").value = cached.description || "";
+    } else {
+        fetch(`/api/services?id=${encodeURIComponent(activeKey)}`)
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.description) {
+                    servicesCache[activeKey] = data;
+                    document.getElementById("category-description").value = data.description;
+                } else {
+                    document.getElementById("category-description").value = "";
+                }
+            })
+            .catch(() => {
+                document.getElementById("category-description").value = "";
+            });
+    }
+
+    loadCategoryGallery(activeKey);
 }
 
 // --- Update Description ---
 async function saveCategoryDescription() {
-    const selectedId = document.getElementById("category-selector").value;
+    const activeKey = getActiveCategoryKey();
     const description = document.getElementById("category-description").value;
+    const meta = getActiveReadableTitle();
 
     try {
         const res = await fetch("/api/services", {
             method: "PUT",
             headers: authHeaders(),
-            body: JSON.stringify({ id: selectedId, description })
+            body: JSON.stringify({
+                id: activeKey,
+                title: meta.fullTitle,
+                description: description
+            })
         });
 
         if (res.ok) {
-            alert("Description saved successfully!");
-            // Update local state
-            const target = allServices.find(s => s.id === selectedId);
-            if (target) target.description = description;
+            alert(`Description for "${meta.fullTitle}" saved successfully!`);
+            if (!servicesCache[activeKey]) servicesCache[activeKey] = {};
+            servicesCache[activeKey].description = description;
         } else {
             alert("Failed to save description.");
         }
@@ -141,7 +203,7 @@ async function saveCategoryDescription() {
     }
 }
 
-// --- Photo Upload & Compressor.js Handling ---
+// --- Photo Upload with Compressor.js ---
 function handleFileSelect(event) {
     const files = Array.from(event.target.files);
     if (!files.length) return;
@@ -157,7 +219,6 @@ function handleFileSelect(event) {
                     type: "image/jpeg"
                 });
                 
-                // Read preview thumbnail
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     uploadFileQueue.push({ file: compressedFile, previewUrl: e.target.result });
@@ -199,7 +260,7 @@ function removeQueueItem(idx) {
 }
 
 async function uploadQueue() {
-    const selectedId = document.getElementById("category-selector").value;
+    const activeKey = getActiveCategoryKey();
     if (!uploadFileQueue.length) return;
 
     const btn = document.getElementById("btn-upload-queue");
@@ -222,13 +283,13 @@ async function uploadQueue() {
             });
             const uploadData = await uploadRes.json();
 
-            // 2. Save record into D1
+            // 2. Save record into D1 with composite category key
             if (uploadData.url) {
                 await fetch("/api/gallery", {
                     method: "POST",
                     headers: authHeaders(),
                     body: JSON.stringify({
-                        service_id: selectedId,
+                        service_id: activeKey,
                         image_url: uploadData.url,
                         is_highlight: 0
                     })
@@ -243,20 +304,20 @@ async function uploadQueue() {
     renderPhotoQueue();
     btn.disabled = false;
     progress.style.display = "none";
-    loadCategoryGallery(selectedId);
+    loadCategoryGallery(activeKey);
 }
 
 // --- Category Gallery Display & Actions ---
-async function loadCategoryGallery(serviceId) {
+async function loadCategoryGallery(categoryKey) {
     const grid = document.getElementById("category-gallery-grid");
     grid.innerHTML = "<p style='color: var(--text-muted);'>Loading photos...</p>";
 
     try {
-        const res = await fetch(`/api/gallery?service_id=${serviceId}`);
+        const res = await fetch(`/api/gallery?service_id=${encodeURIComponent(categoryKey)}`);
         const photos = await res.json();
 
         if (!photos.length) {
-            grid.innerHTML = "<p style='color: var(--text-muted);'>No photos uploaded for this ceremony yet.</p>";
+            grid.innerHTML = "<p style='color: var(--text-muted);'>No photos uploaded for this category yet.</p>";
             return;
         }
 
@@ -265,10 +326,10 @@ async function loadCategoryGallery(serviceId) {
                 <img src="${escapeHTML(photo.image_url)}" alt="Photo">
                 <div class="gallery-card-body">
                     <span class="badge-highlight ${photo.is_highlight ? 'active' : 'inactive'}" 
-                          onclick="toggleHighlight(${photo.id}, ${photo.is_highlight ? 0 : 1}, '${serviceId}')">
+                          onclick="toggleHighlight(${photo.id}, ${photo.is_highlight ? 0 : 1}, '${categoryKey}')">
                           <i class="fas fa-star"></i> ${photo.is_highlight ? 'Highlighted' : 'Highlight'}
                     </span>
-                    <button class="btn-icon-danger" onclick="deletePhoto(${photo.id}, '${serviceId}')" title="Delete Photo">
+                    <button class="btn-icon-danger" onclick="deletePhoto(${photo.id}, '${categoryKey}')" title="Delete Photo">
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </div>
@@ -279,20 +340,20 @@ async function loadCategoryGallery(serviceId) {
     }
 }
 
-async function toggleHighlight(photoId, newStatus, currentServiceId) {
+async function toggleHighlight(photoId, newStatus, currentCategoryKey) {
     try {
         await fetch("/api/gallery", {
             method: "PUT",
             headers: authHeaders(),
             body: JSON.stringify({ id: photoId, is_highlight: newStatus })
         });
-        if (currentServiceId) loadCategoryGallery(currentServiceId);
+        if (currentCategoryKey) loadCategoryGallery(currentCategoryKey);
     } catch (e) {
         alert("Failed to toggle highlight status.");
     }
 }
 
-async function deletePhoto(photoId, currentServiceId) {
+async function deletePhoto(photoId, currentCategoryKey) {
     if (!confirm("Are you sure you want to permanently delete this photo?")) return;
 
     try {
@@ -302,7 +363,7 @@ async function deletePhoto(photoId, currentServiceId) {
         });
 
         if (res.ok) {
-            if (currentServiceId) loadCategoryGallery(currentServiceId);
+            if (currentCategoryKey) loadCategoryGallery(currentCategoryKey);
         } else {
             alert("Error deleting photo.");
         }
