@@ -1,6 +1,6 @@
 // script.js - Pearl Crown Events
 
-// Master registry of all 7 Services available across events
+// Master registry of all 7 Services
 const ALL_SERVICES = [
     { id: "venue", title: "Venue Management", icon: "fa-hotel", defaultDesc: "Layout planning, vendor coordination, power backup, and seamless on-ground guest flow." },
     { id: "planning", title: "Planning & Concept", icon: "fa-drafting-compass", defaultDesc: "Bespoke theme conceptualization, budgets, scheduling, and complete operational blueprints." },
@@ -114,7 +114,6 @@ async function loadHomepageHighlights() {
                 </div>
             `).join("");
         } else {
-            // Elegant fallback highlights
             grid.innerHTML = `
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1519225468359-2996bc010854?w=600&q=80" alt="Highlight"></div>
                 <div class="gallery-item"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=600&q=80" alt="Highlight"></div>
@@ -128,7 +127,7 @@ async function loadHomepageHighlights() {
 }
 
 // =========================================================
-// 2-LEVEL DRILL DOWN NAVIGATION
+// 2-LEVEL DRILL DOWN NAVIGATION (INSTANT SNAP - NO SCROLL ILLUSION)
 // =========================================================
 
 // LEVEL 1: Open Celebration Overview (e.g., Wedding)
@@ -153,7 +152,9 @@ async function openEvent(eventId, skipHistory = false) {
     serviceView.classList.remove("hidden");
     eventLevelView.classList.remove("hidden");
     subserviceLevelView.classList.add("hidden");
-    window.scrollTo(0, 0);
+
+    // Instant snap to top (Eliminates scrolling illusion)
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
     const eventInfo = EVENT_MAP[eventId] || { title: "Celebration", formVal: "Other" };
 
@@ -175,7 +176,7 @@ async function openEvent(eventId, skipHistory = false) {
         descEl.textContent = `At Pearl Crown Events, our ${eventInfo.title} celebrations are curated with royal elegance, precision, and heartfelt emotion.`;
     }
 
-    // 3. Render Clickable Services List for this Event
+    // 3. Render Clickable Services List (Without repetitive prefix)
     renderEventServicesList(eventId, eventInfo.title);
 
     // 4. Fetch Event General Photos (ZERO placeholder placard if empty)
@@ -197,7 +198,9 @@ async function openEventService(eventId, serviceKey, skipHistory = false) {
 
     eventLevelView.classList.add("hidden");
     subserviceLevelView.classList.remove("hidden");
-    window.scrollTo(0, 0);
+
+    // Instant snap to top (Eliminates scrolling illusion)
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
 
     const eventInfo = EVENT_MAP[eventId] || { title: "Celebration" };
     const serviceMeta = ALL_SERVICES.find(s => s.id === serviceKey) || { title: "Service", defaultDesc: "" };
@@ -216,7 +219,6 @@ async function openEventService(eventId, serviceKey, skipHistory = false) {
     const descEl = document.getElementById("dynamic-subservice-description");
     titleEl.textContent = compositeTitle;
 
-    // Check if custom write-up exists for this event-service combo or fallback to intelligent template
     const compositeKey = `${eventId}__${serviceKey}`;
     const cached = servicesDataCache[compositeKey] || servicesDataCache[serviceKey];
 
@@ -235,7 +237,7 @@ async function openEventService(eventId, serviceKey, skipHistory = false) {
     }
 }
 
-// Render the 7 Clickable Services inside an Event Page
+// Render the 7 Clickable Services (WITHOUT REPETITIVE PREFIX)
 function renderEventServicesList(eventId, eventTitle) {
     const listEl = document.getElementById("event-services-list");
     const headingEl = document.getElementById("event-services-heading");
@@ -246,10 +248,11 @@ function renderEventServicesList(eventId, eventTitle) {
 
     if (!listEl) return;
 
+    // Notice: Clean service title without repeating the event name in each row
     listEl.innerHTML = ALL_SERVICES.map(svc => `
         <li onclick="openEventService('${escapeHTML(eventId)}', '${escapeHTML(svc.id)}')">
             <i class="fas fa-arrow-right"></i>
-            <span>${escapeHTML(eventTitle)} ${escapeHTML(svc.title)}</span>
+            <span class="service-title">${escapeHTML(svc.title)}</span>
             <span class="explore-badge">Explore <i class="fas fa-chevron-right"></i></span>
         </li>
     `).join("");
@@ -260,7 +263,6 @@ async function loadGalleryGrid(targetElementId, categoryKey) {
     const grid = document.getElementById(targetElementId);
     if (!grid) return;
 
-    // Reset container completely
     grid.innerHTML = "";
 
     try {
@@ -268,7 +270,6 @@ async function loadGalleryGrid(targetElementId, categoryKey) {
         if (!res.ok) return;
         const photos = await res.json();
 
-        // If photos exist, show them; otherwise leave grid empty/hidden
         if (photos && photos.length > 0) {
             grid.innerHTML = photos.map(photo => `
                 <div class="gallery-item">
@@ -313,14 +314,10 @@ function navigateToHome(scrollToId = null) {
     if (scrollToId) {
         const target = document.getElementById(scrollToId);
         if (target) {
-            setTimeout(() => {
-                target.scrollIntoView({ behavior: "smooth" });
-            }, 50);
+            target.scrollIntoView({ behavior: "smooth" });
         }
     } else {
-        setTimeout(() => {
-            window.scrollTo({ top: lastScrollPosition, behavior: "smooth" });
-        }, 10);
+        window.scrollTo({ top: lastScrollPosition, behavior: 'instant' });
     }
 
     if (history.state) {
@@ -335,7 +332,6 @@ function enquireCurrentContext() {
 
     navigateToHome("contact");
 
-    // Pre-populate form fields
     setTimeout(() => {
         const eventSelect = document.getElementById("form-event-type");
         const messageBox = document.getElementById("form-message");
@@ -355,7 +351,7 @@ function enquireCurrentContext() {
     }, 150);
 }
 
-// Browser Physical Back / Forward Button Handling
+// Browser Back / Forward Button Handling
 window.onpopstate = function(event) {
     if (!event.state || event.state.view === "home") {
         navigateToHome();
@@ -366,7 +362,7 @@ window.onpopstate = function(event) {
     }
 };
 
-// URL Hash routing on page load (e.g., direct links like #wedding or #wedding__design)
+// URL Hash routing on page load (e.g. #wedding or #wedding__design)
 function handleInitialUrlRoute() {
     const hash = window.location.hash.replace(/^#/, "");
     if (!hash) return;

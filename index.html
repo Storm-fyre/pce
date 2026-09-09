@@ -96,53 +96,53 @@
                     <ul class="service-list">
                         <li onclick="openEvent('wedding')">
                             <i class="fas fa-arrow-right"></i> 
-                            <span>Wedding</span>
+                            <span class="service-title">Wedding</span>
                             <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
                         </li>
                         <li onclick="openEvent('engagement')">
                             <i class="fas fa-arrow-right"></i> 
-                            <span>Engagement</span>
+                            <span class="service-title">Engagement</span>
                             <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
                         </li>
                         <li onclick="openEvent('anniversary')">
                             <i class="fas fa-arrow-right"></i> 
-                            <span>Anniversary Parties</span>
+                            <span class="service-title">Anniversary Parties</span>
                             <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
                         </li>
                         <li onclick="openEvent('birthday')">
                             <i class="fas fa-arrow-right"></i> 
-                            <span>Birthday Parties</span>
+                            <span class="service-title">Birthday Parties</span>
                             <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
                         </li>
                         <li onclick="openEvent('cradle')">
                             <i class="fas fa-arrow-right"></i> 
-                            <span>Cradle Ceremonies</span>
+                            <span class="service-title">Cradle Ceremonies</span>
                             <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
                         </li>
                         <li onclick="openEvent('bommala')">
                             <i class="fas fa-arrow-right"></i> 
-                            <span>Bommala Koluvu</span>
+                            <span class="service-title">Bommala Koluvu</span>
                             <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
                         </li>
                         <li onclick="openEvent('sangeet')">
                             <i class="fas fa-arrow-right"></i> 
-                            <span>Sangeet</span>
+                            <span class="service-title">Sangeet</span>
                             <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
                         </li>
                         <li onclick="openEvent('mehandi')">
                             <i class="fas fa-arrow-right"></i> 
-                            <span>Mehandi Function</span>
+                            <span class="service-title">Mehandi Function</span>
                             <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
                         </li>
                         <li onclick="openEvent('halfsaree')">
                             <i class="fas fa-arrow-right"></i> 
-                            <span>Half-Saree Function</span>
+                            <span class="service-title">Half-Saree Function</span>
                             <span class="explore-badge">View <i class="fas fa-chevron-right"></i></span>
                         </li>
                     </ul>
                 </div>
 
-                <!-- 2. Clearly Unclickable Services Showcase -->
+                <!-- 2. Clean Unclickable Services Showcase (Without Taglines) -->
                 <div class="service-column unclickable-showcase">
                     <div class="column-header">
                         <h3><i class="fas fa-sparkles"></i> Our Core Services</h3>
@@ -150,64 +150,43 @@
                     </div>
                     
                     <p class="showcase-desc">
-                        Every service is seamlessly tailored to whichever celebration you choose above:
+                        Every service is seamlessly tailored to whichever celebration you choose:
                     </p>
 
                     <div class="capability-badges-grid">
                         <div class="capability-badge">
                             <i class="fas fa-hotel"></i>
-                            <div>
-                                <strong>Venue Management</strong>
-                                <small>Layouts, logistics & guest coordination</small>
-                            </div>
+                            <strong>Venue Management</strong>
                         </div>
 
                         <div class="capability-badge">
                             <i class="fas fa-drafting-compass"></i>
-                            <div>
-                                <strong>Planning & Concept</strong>
-                                <small>Master blueprints, budgets & timelines</small>
-                            </div>
+                            <strong>Planning & Concept</strong>
                         </div>
 
                         <div class="capability-badge">
                             <i class="fas fa-palette"></i>
-                            <div>
-                                <strong>Design & Decor</strong>
-                                <small>Grand mandaps, florals & stage lighting</small>
-                            </div>
+                            <strong>Design & Decor</strong>
                         </div>
 
                         <div class="capability-badge">
                             <i class="fas fa-utensils"></i>
-                            <div>
-                                <strong>Catering Services</strong>
-                                <small>Royal multi-cuisine banquets</small>
-                            </div>
+                            <strong>Catering Services</strong>
                         </div>
 
                         <div class="capability-badge">
                             <i class="fas fa-store"></i>
-                            <div>
-                                <strong>Food Stalls</strong>
-                                <small>Live chaat, mocktail bars & sweet counters</small>
-                            </div>
+                            <strong>Food Stalls</strong>
                         </div>
 
                         <div class="capability-badge">
                             <i class="fas fa-music"></i>
-                            <div>
-                                <strong>Entertainment</strong>
-                                <small>Live performers, DJs, anchoring & bands</small>
-                            </div>
+                            <strong>Entertainment</strong>
                         </div>
 
                         <div class="capability-badge">
                             <i class="fas fa-camera-retro"></i>
-                            <div>
-                                <strong>Media Management</strong>
-                                <small>Cinematic wedding films & photography</small>
-                            </div>
+                            <strong>Media Management</strong>
                         </div>
                     </div>
                 </div>
@@ -293,9 +272,9 @@
         <!-- Navigation Breadcrumbs Top Bar -->
         <div class="service-page-header">
             <div class="back-nav-container">
-                <nav class="royal-breadcrumbs" id="breadcrumb-bar">
+                <div class="royal-breadcrumbs" id="breadcrumb-bar">
                     <!-- Populated dynamically via script.js -->
-                </nav>
+                </div>
             </div>
         </div>
 
@@ -332,7 +311,7 @@
             </div>
         </div>
 
-        <!-- 2.2: LEVEL 2 - SUB-SERVICE DRILL DOWN (e.g., Wedding Design & Decor) -->
+        <!-- 2.2: LEVEL 2 - SUB-SERVICE DRILL DOWN -->
         <div id="subservice-level-view" class="detail-section hidden">
             <div class="detail-content">
                 <h2 id="dynamic-subservice-title">Ceremony Service</h2>

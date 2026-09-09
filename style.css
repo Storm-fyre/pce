@@ -21,7 +21,7 @@
 }
 
 html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto; /* Instant view jumps */
 }
 
 body {
@@ -57,12 +57,6 @@ ul {
 
 .view-container {
     width: 100%;
-    animation: fadeIn 0.35s ease-in-out;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 /* --- HEADER & NAVIGATION --- */
@@ -97,18 +91,18 @@ header {
     color: var(--accent-gold);
 }
 
-nav {
+#navbar {
     display: flex;
     align-items: center;
 }
 
-nav ul {
+#navbar ul {
     display: flex;
     gap: 30px;
     align-items: center;
 }
 
-nav a {
+#navbar a {
     color: var(--white);
     font-weight: 400;
     text-transform: uppercase;
@@ -117,7 +111,7 @@ nav a {
     cursor: pointer;
 }
 
-nav a:hover {
+#navbar a:hover {
     color: var(--accent-gold);
 }
 
@@ -302,15 +296,15 @@ nav a:hover {
     letter-spacing: 0.5px;
 }
 
-/* 1. Clickable Events List on Homepage */
+/* 1. Clickable Events List */
 .event-clickable-card {
     border-top: 5px solid var(--accent-gold);
 }
 
 .service-list li {
-    padding: 13px 15px;
+    padding: 14px 16px;
     border-radius: 6px;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-size: 1.05rem;
     display: flex;
     align-items: center;
@@ -319,18 +313,22 @@ nav a:hover {
     background: #fafbfc;
     border: 1px solid var(--border-color);
     transition: all 0.25s ease;
+    gap: 12px;
 }
 
 .service-list li i.fa-arrow-right {
     color: var(--accent-gold);
-    margin-right: 12px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    flex-shrink: 0;
     transition: transform 0.2s;
 }
 
-.service-list li span {
+/* Fix text wrapping: Title stretches, badge is locked */
+.service-list li .service-title {
     color: var(--text-dark);
     flex: 1;
+    min-width: 0;
+    font-weight: 500;
 }
 
 .explore-badge {
@@ -338,9 +336,14 @@ nav a:hover {
     font-weight: 700;
     color: var(--primary-blue);
     background: #edf2f7;
-    padding: 3px 8px;
+    padding: 4px 10px;
     border-radius: 4px;
-    opacity: 0.7;
+    opacity: 0.85;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
     transition: 0.2s;
 }
 
@@ -355,7 +358,7 @@ nav a:hover {
     transform: translateX(3px);
 }
 
-.service-list li:hover span {
+.service-list li:hover .service-title {
     color: var(--primary-blue);
     font-weight: 700;
 }
@@ -366,7 +369,7 @@ nav a:hover {
     opacity: 1;
 }
 
-/* 2. Clearly Unclickable Services Showcase on Homepage */
+/* 2. Clearly Unclickable Services Showcase */
 .unclickable-showcase {
     border-top: 5px solid var(--primary-blue);
     background: #fdfdfd;
@@ -389,7 +392,7 @@ nav a:hover {
 .showcase-desc {
     color: var(--text-muted);
     font-size: 0.95rem;
-    margin-bottom: 15px;
+    margin-bottom: 18px;
     line-height: 1.5;
 }
 
@@ -403,8 +406,8 @@ nav a:hover {
 .capability-badge {
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding: 10px 14px;
+    gap: 16px;
+    padding: 12px 16px;
     background: #f8fafc;
     border: 1px dashed #cbd5e1;
     border-radius: 8px;
@@ -413,10 +416,10 @@ nav a:hover {
 }
 
 .capability-badge i {
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     color: var(--primary-blue);
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -428,21 +431,15 @@ nav a:hover {
 .capability-badge strong {
     display: block;
     color: var(--primary-blue);
-    font-size: 0.98rem;
-}
-
-.capability-badge small {
-    display: block;
-    color: var(--text-muted);
-    font-size: 0.82rem;
-    line-height: 1.3;
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 /* --- DYNAMIC EVENT & SERVICE DETAIL PAGE --- */
 .service-page-header {
     background-color: var(--primary-blue);
     color: var(--white);
-    padding: 22px 5%;
+    padding: 16px 5%;
     border-bottom: 3px solid var(--accent-gold);
 }
 
@@ -451,12 +448,14 @@ nav a:hover {
     margin: 0 auto;
 }
 
+/* Isolated Breadcrumbs (Never collides with header nav) */
 .royal-breadcrumbs {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     font-size: 0.95rem;
     flex-wrap: wrap;
+    line-height: 1.4;
 }
 
 .royal-breadcrumbs a {
@@ -464,7 +463,13 @@ nav a:hover {
     cursor: pointer;
     display: inline-flex;
     align-items: center;
-    gap: 5px;
+    gap: 6px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    padding: 0 !important;
+    width: auto !important;
 }
 
 .royal-breadcrumbs a:hover {
@@ -474,12 +479,15 @@ nav a:hover {
 
 .royal-breadcrumbs .breadcrumb-separator {
     color: rgba(255, 255, 255, 0.4);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
+    display: inline-flex;
+    align-items: center;
 }
 
 .royal-breadcrumbs .breadcrumb-current {
     color: var(--white);
     font-weight: 700;
+    font-size: 0.92rem;
 }
 
 .detail-section {
@@ -754,7 +762,8 @@ footer {
     .menu-toggle { display: block; }
     .cta-btn.desktop-only { display: none; }
     
-    nav {
+    /* Strictly scoped to #navbar (Will never affect breadcrumbs!) */
+    #navbar {
         position: absolute;
         top: var(--header-height);
         left: 0;
@@ -764,10 +773,11 @@ footer {
         display: none; 
         padding: 20px 0;
     }
-    nav.active { display: flex; }
-    nav ul { flex-direction: column; width: 100%; gap: 0; }
-    nav ul li { width: 100%; text-align: center; }
-    nav a { display: block; padding: 15px; width: 100%; font-size: 1.1rem; }
+    #navbar.active { display: flex; }
+    #navbar ul { flex-direction: column; width: 100%; gap: 0; }
+    #navbar ul li { width: 100%; text-align: center; }
+    #navbar a { display: block; padding: 15px; width: 100%; font-size: 1.1rem; }
+    
     .mobile-cta { margin-top: 15px; display: inline-block; }
     .mobile-cta .cta-btn { margin-left: 0; width: 80%; }
     
@@ -776,6 +786,9 @@ footer {
     .welcome-text { font-size: 0.9rem; }
     .detail-content h2 { font-size: 2rem; }
     .whatsapp-float { width: 50px; height: 50px; bottom: 20px; right: 20px; font-size: 25px; }
+
+    .service-list li { padding: 12px 14px; }
+    .service-list li .service-title { font-size: 0.98rem; }
 }
 
 @media (min-width: 769px) { 
