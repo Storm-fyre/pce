@@ -57,7 +57,6 @@
         <section id="home-hero">
             <h1>Making Your Celebrations Royal</h1>
             <p class="tagline">"Every great memory begins with great celebration, and that’s exactly where we come."</p>
-            <br>
             <a onclick="navigateToHome('contact')" class="btn-main" style="color:#0f1e56">Plan My Event</a>
         </section>
 
@@ -80,10 +79,12 @@
 
         <!-- Events & Capabilities Section -->
         <section id="services-list">
-            <h2 class="section-title" style="text-align: center; display:block;">Events & Capabilities</h2>
-            <p style="text-align: center; color: #666; margin-top: -15px; margin-bottom: 30px;">
-                Select any celebration below to view our curated portfolio and specialized services
-            </p>
+            <div class="section-heading-block">
+                <h2 class="section-title">Events & Capabilities</h2>
+                <p class="section-subtitle">
+                    Select any celebration below to view our curated portfolio and specialized services
+                </p>
+            </div>
 
             <div class="services-container">
                 
@@ -91,7 +92,6 @@
                 <div class="service-column event-clickable-card">
                     <div class="column-header">
                         <h3><i class="fas fa-glass-cheers"></i> Celebrations We Curate</h3>
-                        <span class="tap-hint"><i class="fas fa-mouse-pointer"></i> Tap any event to explore</span>
                     </div>
                     <ul class="service-list">
                         <li onclick="openEvent('wedding')">
@@ -142,7 +142,7 @@
                     </ul>
                 </div>
 
-                <!-- 2. Clean Unclickable Services Showcase (Without Taglines) -->
+                <!-- 2. Clean Unclickable Services Showcase -->
                 <div class="service-column unclickable-showcase">
                     <div class="column-header">
                         <h3><i class="fas fa-sparkles"></i> Our Core Services</h3>
@@ -202,7 +202,7 @@
         <!-- Highlights Gallery Section -->
         <section id="gallery-preview">
             <h2 class="section-title" style="text-align: center; display:block;">Our Highlights</h2>
-            <p style="text-align: center; color: #666;">A glimpse of our curated celebrations</p>
+            <p style="text-align: center; color: #666; margin-top: 8px;">A glimpse of our curated celebrations</p>
             
             <div class="gallery-grid" id="homepage-highlights-grid">
                 <!-- Populated dynamically via script.js -->
@@ -293,14 +293,10 @@
 
             <!-- Clickable Services List under this Event -->
             <div class="event-services-wrapper">
-                <div class="section-title-wrapper" style="text-align: center; margin-bottom: 25px;">
+                <div class="event-services-header">
                     <span class="welcome-text">Tailored Capabilities</span>
-                    <h3 id="event-services-heading" style="font-size: 2rem; color: var(--primary-blue);">
-                        Services for this Celebration
-                    </h3>
-                    <p style="color: #666; font-size: 0.95rem; margin-top: 5px;">
-                        Click on any service below to view specific details and photos
-                    </p>
+                    <h3 id="event-services-heading">Services for this Celebration</h3>
+                    <p>Click on any service below to view specific details and photos</p>
                 </div>
 
                 <div class="service-column nested-service-column">
